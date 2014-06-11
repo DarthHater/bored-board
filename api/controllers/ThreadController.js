@@ -19,8 +19,8 @@ module.exports = {
 	},
 
 	view: function(req, res) {
-
-		db.Thread.find({ title: 'Fuck it'}, function(err, docs) {
+		var id = req.param('id');
+		db.Thread.findOne({ _id: id}, function(err, docs) {
 			if (err) return res.json('Shit done fucked up', 400);
 
 			return res.json(docs, 200);

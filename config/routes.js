@@ -30,6 +30,7 @@ module.exports.routes = {
   '/': {
     view: 'homepage'
   },
+  'get /thread/view/:id': 'ThreadController.view',
 
 
   // Custom routes here...
