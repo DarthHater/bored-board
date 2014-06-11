@@ -2,7 +2,7 @@
   "name": "bored-board",
   "private": true,
   "version": "0.0.0",
-  "description": "a Sails application",
+  "description": "A message board for the bored",
   "keywords": [],
   "dependencies": {
     "sails": "git://github.com/balderdashy/sails.git#v0.10",
@@ -21,7 +21,9 @@
     "grunt-contrib-uglify": "~0.2.2",
     "grunt-contrib-cssmin": "~0.6.1",
     "grunt-contrib-less": "~0.9.0",
-    "grunt-contrib-coffee": "~0.7.0"
+    "grunt-contrib-coffee": "~0.7.0",
+    "mongodb": "~1.4.5",
+    "mongoose": "~3.8.12"
   },
   "scripts": {
     "start": "node app.js",
@@ -32,6 +34,6 @@
     "type": "git",
     "url": "git://github.com/jhesse/bored-board.git"
   },
-  "author": "jhesse",
-  "license": ""
+  "author": "Jeffry Hesse <jeffryxtron@gmail.com>",
+  "license": "MIT"
 }
