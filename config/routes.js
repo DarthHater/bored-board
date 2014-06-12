@@ -31,6 +31,7 @@ module.exports.routes = {
     view: 'homepage'
   },
   'get /thread/view/:id': 'ThreadController.view',
+  'get /thread/delete/:id': 'ThreadController.delete',
 
 
   // Custom routes here...

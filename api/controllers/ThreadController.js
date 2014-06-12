@@ -14,7 +14,7 @@ module.exports = {
 		thread.save(function (err, thread) {
 			if(err) return res.json('Shit done fucked up', 400);
 
-			return res.json('Thread inserted', 200);
+			return res.json('Thread inserted id: ' + thread._id, 200);
 		})
 	},
 
@@ -25,6 +25,15 @@ module.exports = {
 
 			return res.json(docs, 200);
 		});
+	},
+
+	delete: function(req, res) {
+		var id = req.param('id');
+		db.Thread.findOne({ _id: id }).remove(function(err, doc) {
+			if(err) return res.json('Shit done fucked up', 400);
+
+			return res.json('Thread: ' + id + ' successfully deleted', 200);
+		}); 
 	}
 };
 
