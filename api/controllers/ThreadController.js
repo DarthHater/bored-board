@@ -29,7 +29,7 @@ module.exports = {
 
 	delete: function(req, res) {
 		var id = req.param('id');
-		db.Thread.findOne({ _id: id }).remove(function(err, doc) {
+		db.Thread.findOneAndRemove({ _id: id }, function(err) {
 			if(err) return res.json('Shit done fucked up', 400);
 
 			return res.json('Thread: ' + id + ' successfully deleted', 200);
