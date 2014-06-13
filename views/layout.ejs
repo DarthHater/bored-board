@@ -1,11 +1,8 @@
-<!DOCTYPE html>
-<html>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
   <head>
-    <title>New Sails App</title>
-
-    <!-- Viewport mobile tag for sensible mobile support -->
+    <title>VLV: Ben Schultz</title>
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-
     
     <!--  
         Stylesheets and Preprocessors
@@ -31,13 +28,19 @@
     <!--STYLES-->
     <link rel="stylesheet" href="/styles/importer.css">
     <!--STYLES END-->
+
+    <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.2/css/bootstrap.min.css">
+
+    <!-- Optional theme -->
+    <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.2/css/bootstrap-theme.min.css">
+
+    <!-- Latest compiled and minified JavaScript -->
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+    <script src="//netdna.bootstrapcdn.com/bootstrap/3.0.2/js/bootstrap.min.js"></script>
   </head>
-
-  <body>
+  <body lang="en">
     <%- body %>
-
-
-
+        
     <!--
         Client-side Templates
         ========================
@@ -62,9 +65,48 @@
     <!--TEMPLATES-->
     
     <!--TEMPLATES END-->
-
-
-    <!--
+  <!-- Start Error Display -->
+  <!-- End Error Display -->
+  <!-- Start Content Display -->
+      <div class="navbar navbar-inverse navbar-fixed-top active" role="navigation">
+        <div class="container">
+          <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+              <span class="sr-only">Toggle navigation</span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="/">VLV: Ben Schultz</a>
+          </div>
+          <div class="collapse navbar-collapse">
+            <ul class="nav navbar-nav">
+              <li class="dropdown">
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown">threads <b class="caret"></b></a>
+                <ul class="dropdown-menu">
+                  <li><a href="/">view all</a></li>
+                  <li><a href="{% url 'post' %}">new thread</a></li>
+                </ul>
+              </li>
+              <li><a href="#">messages</a></li>
+              <li><a href="#">search</a></li>
+              <li><a href="#">small talk</a></li>
+              <li><a href="#">profile</a></li>
+              <li><a href="#">games</a></li>
+              <li><a href="#">VLV+</a></li>
+              <li><a href="#">favorites</a></li>
+            </ul>
+          </div><!--/.nav-collapse -->
+        </div>
+      </div>
+    <div class="container">
+        <ul class="nav">
+          <li><a href="/">back to it</a></li>
+        </ul>
+        bored-board
+    </div>
+  <!-- End Content Display -->
+  <!--
 
       Client-side Javascript
       ========================
@@ -89,6 +131,7 @@
 
     <!--SCRIPTS-->
     <script src="/js/dependencies/sails.io.js"></script>
+    <script src="/js/main.js"></script>
     <!--SCRIPTS END-->
   </body>
 </html>
