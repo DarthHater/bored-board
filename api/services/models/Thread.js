@@ -8,9 +8,8 @@
 module.exports = function(mongoose) {
 
 	 var schema = new mongoose.Schema({
-
-	 title: String
-
+	 	title: String,
+	 	datePosted: { type: Date, default: Date.now }
 	})
 
  	try {

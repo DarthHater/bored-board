@@ -1,0 +1,17 @@
+<% threads.forEach(function(thread) { %>
+<!-- Threads  -->
+<div class="row list" ondblclick="">
+    <div class="col-xs-3 col-md-2">
+        <a href="/member/" class="memberlink">Feffy</a>
+    </div>
+    <div class="col-xs-9 col-md-4">
+        &nbsp;<a href="javascript:;" onclick="firstpost('thread',this);return false;">&raquo;</a>&nbsp; <a href="/thread/view/<%= thread._id %>"><%= thread.title %></a>
+    </div>
+    <div class="col-xs-2 col-md-2">
+        <span class="badge">69</span>
+    </div>
+    <div class="col-xs-10 col-md-4">
+        <a href="/member/">Feffy:</a> on Blah
+    </div>
+</div>
+<% }) %>

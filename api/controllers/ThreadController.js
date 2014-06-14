@@ -9,9 +9,7 @@ var db = require('../services/db');
 
 module.exports = {
 	create: function(req, res) {
-		var thread = db.Thread({ title: 'Fuck it'});
-
-		thread.save(function (err, thread) {
+		db.Thread({ title: 'Fuck it' }).save(function (err, thread) {
 			if(err) return res.json('Shit done fucked up', 400);
 
 			return res.json('Thread inserted id: ' + thread._id, 200);
@@ -20,10 +18,10 @@ module.exports = {
 
 	view: function(req, res) {
 		var id = req.param('id');
-		db.Thread.findOne({ _id: id}, function(err, docs) {
+		db.Thread.find().limit(10).exec(function(err, docs) {
 			if (err) return res.json('Shit done fucked up', 400);
 
-			return res.json(docs, 200);
+			return res.view('thread/list', { threads: docs });
 		});
 	},
 
