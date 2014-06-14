@@ -17,7 +17,7 @@ module.exports = {
 	},
 
 	list: function(req, res) {
-		db.Thread.find().limit(10).exec(function(err, docs) {
+		db.Thread.find().limit(10).lean().exec(function(err, docs) {
 			if (err) return res.json('Shit done fucked up', 400);
 
 			return res.view('thread/list', { threads: docs });
