@@ -16,12 +16,21 @@ module.exports = {
 		})
 	},
 
-	view: function(req, res) {
-		var id = req.param('id');
+	list: function(req, res) {
 		db.Thread.find().limit(10).exec(function(err, docs) {
 			if (err) return res.json('Shit done fucked up', 400);
 
 			return res.view('thread/list', { threads: docs });
+		});
+	},
+
+	view: function(req, res) {
+		var id = req.param('id');
+
+		db.Thread.findOne({ _id: id }, function(err, doc) {
+			if (err) return res.json('Shit done fucked up', 400);
+
+			return res.view('thread/view', { thread: doc });
 		});
 	},
 
