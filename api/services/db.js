@@ -21,5 +21,7 @@ db.once('open', function callback() {
 });
 
 module.exports = {
-	Thread: require('./models/Thread.js')(mongoose)
+	Thread: require('./models/Thread.js')(mongoose),
+	User: require('./models/User.js')(mongoose),
+	Post: require('./models/Post.js')(mongoose)
 }
