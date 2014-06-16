@@ -1,2 +1,18 @@
 <h1>Single Thread View</h1>
-<%= thread.title %>
+<h3><%= thread.title %></h3>
+<div id="threadposts">
+<% posts.forEach(function(posts) { %>
+  <div class="row post" id="post_<%= posts._id %>_info">
+      <div class="col-md-12">
+    		<span class="postinfo"><a href="#" class="memberlink"><%= posts.creator %></a> posted this <%= posts.createdAt %></span>
+      		&nbsp;&raquo; <a href="javascript:;" onclick="quote_post(<%= posts._id %>)">quote</a>&nbsp;&raquo;
+      		<a href="#" name="">#Post Number (fill in)</a>
+    </div>
+  </div>
+  <div class="row post" id="post_<%= posts._id %>_body">
+    <div class="col-md-12">
+      <span class="postbody"><%= posts.body %></span>
+    </div>
+  </div>
+<% }) %>
+</div>
