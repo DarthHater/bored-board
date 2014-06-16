@@ -1,8 +1,8 @@
 /**
- * MyModel
+ * Thread
  *
  * @module      :: Model
- * @description :: Just to try mongoose
+ * @description :: Model for Threads, I think?
  */
 
 module.exports = function(mongoose) {
