@@ -12,12 +12,28 @@ module.exports = {
 		db.Thread({ title: 'Fuck it' }).save(function (err, thread) {
 			if(err) return res.json('Shit done fucked up', 400);
 
-			return res.json('Thread inserted id: ' + thread._id, 200);
+			db.Post({body: 'test', thread: thread._id, creator: thread._id}).save(function (err, post) {
+
+				return res.json('Thread and post inserted post._id: ' + post._id + ' thread._id: ' + post.thread, 200);
+			});			
+		});
+	},
+
+	reply: function(req, res) {
+		var id = req.param('id');
+		var body = req.param('body');
+
+		// hard coding creator to thread id for now, I'll fill in once I get User logic figured out
+		db.Post({ body: body, thread: id, creator: id}).save(function (err, post) {
+			if(err) return res.view('500');
+
+			// Probably should just publish an update via socket to the view, I'll figure this out soon?
+			return res.view('thread/view');
 		})
 	},
 
 	list: function(req, res) {
-		db.Thread.find().limit(10).lean().exec(function(err, docs) {
+		db.Thread.find().limit(10).lean().exec(function (err, docs) {
 			if (err) return res.json('Shit done fucked up', 400);
 
 			return res.view('thread/list', { threads: docs });
@@ -27,16 +43,17 @@ module.exports = {
 	view: function(req, res) {
 		var id = req.param('id');
 
-		db.Thread.findOne({ _id: id }, function(err, doc) {
+		db.Post.find({ thread: id }, function (err, docs) {
 			if (err) return res.json('Shit done fucked up', 400);
 
-			return res.view('thread/view', { thread: doc });
+			console.log(docs);
+			return res.view('thread/view', { posts: docs });
 		});
 	},
 
 	delete: function(req, res) {
 		var id = req.param('id');
-		db.Thread.findOneAndRemove({ _id: id }, function(err) {
+		db.Thread.findOneAndRemove({ _id: id }, function (err) {
 			if(err) return res.json('Shit done fucked up', 400);
 
 			return res.json('Thread: ' + id + ' successfully deleted', 200);
