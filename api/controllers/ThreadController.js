@@ -33,21 +33,20 @@ module.exports = {
 	},
 
 	list: function(req, res) {
-		db.Thread.find().limit(10).lean().exec(function (err, docs) {
+		db.Thread.find().limit(50).lean().exec(function (err, docs) {
 			if (err) return res.json('Shit done fucked up', 400);
 
-			return res.view('thread/list', { threads: docs });
+			return res.view('thread/list', { threads: db.helper.toJSON(docs) });
 		});
 	},
 
 	view: function(req, res) {
 		var id = req.param('id');
 
-		db.Post.find({ thread: id }, function (err, docs) {
+		db.Post.find({ thread: id }).lean().exec(function (err, posts) {
 			if (err) return res.json('Shit done fucked up', 400);
 
-			console.log(docs);
-			return res.view('thread/view', { posts: docs });
+			return res.view('thread/view', { posts: db.helper.toJSON(posts) });
 		});
 	},
 

@@ -9,6 +9,7 @@ mongoose.connect('mongodb://localhost/bored-board');
  * We check if the connection is ok
  * If so we will continue to load everything ...
  */
+ 
 var db = mongoose.connection;
  
 console.log('Try to connect to MongoDB via Mongoose ...');
@@ -23,5 +24,6 @@ db.once('open', function callback() {
 module.exports = {
 	Thread: require('./models/Thread.js')(mongoose),
 	User: require('./models/User.js')(mongoose),
-	Post: require('./models/Post.js')(mongoose)
+	Post: require('./models/Post.js')(mongoose),
+	helper: require('./models/Helpers.js')
 }

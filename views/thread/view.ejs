@@ -3,7 +3,7 @@
 <% posts.forEach(function(posts) { %>
   <div class="row post" id="post_<%= posts._id %>_info">
       <div class="col-md-12">
-    		<span class="postinfo"><a href="#" class="memberlink"><%= posts.creator %></a> posted this <%= posts.createdAt %></span>
+    		<span class="postinfo"><a href="#" class="memberlink"><%= posts.creator.id %></a> posted this <%= posts.createdAt %></span>
       		&nbsp;&raquo; <a href="javascript:;" onclick="quote_post(<%= posts._id %>)">quote</a>&nbsp;&raquo;
       		<a href="#" name="">#Post Number (fill in)</a>
     </div>
