@@ -1,0 +1,15 @@
+<h3>Fill in with Thread Title</h3>
+<div id="threadposts" ng-repeat="post in posts">
+  <div class="row post" id="post_{{ posts._id }}_info">
+      <div class="col-md-12">
+    		<span class="postinfo"><a href="#" class="memberlink">{{ posts.creator.id }}</a> posted this {{ posts.createdAt }}</span>
+      		&nbsp;&raquo; quote</a>&nbsp;&raquo;
+      		<a href="#" name="">#Post Number (fill in)</a>
+    </div>
+  </div>
+  <div class="row post" id="post_{{ posts._id }}_body">
+    <div class="col-md-12">
+      <span class="postbody">{{ posts.body }}</span>
+    </div>
+  </div>
+</div>

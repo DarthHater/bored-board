@@ -30,9 +30,13 @@ module.exports.routes = {
   '/': {
     view: 'homepage'
   },
-  'get /thread/view/:id': 'ThreadController.view',
-  'get /thread/list/': 'ThreadController.list',
-  'get /thread/delete/:id': 'ThreadController.delete',
+  'get /board/threadlist/':{
+    contoller: 'board',
+    action: 'threadlist'
+  },
+  //'get /thread/view/:id': 'ThreadController.view',
+  //'get /thread/list/': 'ThreadController.list',
+  //'get /thread/delete/:id': 'ThreadController.delete',
 
 
   // Custom routes here...
