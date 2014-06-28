@@ -1,7 +1,7 @@
 var boredBoardApp = angular.module('boredBoardApp', 
 	['ngRoute']).
-config(['$routeProvider',
-  function($routeProvider) {
+config(['$routeProvider', '$locationProvider',
+  function($routeProvider, $locationProvider) {
     $routeProvider.
       when('/thread/list', {
         templateUrl: 'partials/list.html',
@@ -14,10 +14,12 @@ config(['$routeProvider',
       otherwise({
         redirectTo: '/thread/list'
       });
+
+      $locationProvider.html5Mode(true);
   }]);
 
 boredBoardApp.controller('ThreadListCtrl', function ($scope, $http) {
-  $http.get('board/listthreads').success(function(data) {
+  $http.get('api/board/listthreads').success(function(data) {
     $scope.threads = data.threads;
   });
 });
@@ -25,7 +27,7 @@ boredBoardApp.controller('ThreadListCtrl', function ($scope, $http) {
 boredBoardApp.controller('ThreadViewCtrl', function ($scope, $http, $routeParams) {
   var id = $routeParams.threadId;
 
-  $http.get('board/viewthread/' + id).success(function(data) {
+  $http.get('api/board/viewthread/' + id).success(function(data) {
     $scope.posts = data.posts;
   });
 });
