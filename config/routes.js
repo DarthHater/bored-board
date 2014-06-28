@@ -30,13 +30,6 @@ module.exports.routes = {
   '/': {
     view: 'homepage'
   },
-  'get /*(^.*)': {
-    view: 'homepage'
-  },
-  'get /board/threadlist/':{
-    contoller: 'board',
-    action: 'threadlist'
-  },
   'get /login': {
     controller: 'auth',
     action: 'login'
