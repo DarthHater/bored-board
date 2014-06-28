@@ -37,6 +37,10 @@ module.exports.routes = {
     contoller: 'board',
     action: 'threadlist'
   },
+  'get /login': {
+    controller: 'auth',
+    action: 'login'
+  },
   //'get /thread/view/:id': 'ThreadController.view',
   //'get /thread/list/': 'ThreadController.list',
   //'get /thread/delete/:id': 'ThreadController.delete',
