@@ -37,11 +37,11 @@ module.exports.routes = {
   'post /login': {
     controller: 'auth',
     action: 'process'
-  }
+  },
   'get /logout': {
     controller: 'auth',
     action: 'logout'
-  }
+  },
   //'get /thread/view/:id': 'ThreadController.view',
   //'get /thread/list/': 'ThreadController.list',
   //'get /thread/delete/:id': 'ThreadController.delete',
