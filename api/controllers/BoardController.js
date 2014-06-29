@@ -5,7 +5,8 @@
  * @help        :: See http://links.sailsjs.org/docs/controllers
  */
 
-var db = require('../services/db');
+var db = require('../services/db'),
+	Q = require('q');
 
 module.exports = {
 	createthread: function(req, res) {
@@ -43,11 +44,20 @@ module.exports = {
 	viewthread: function(req, res) {
 		var id = req.param('id');
 
-		db.Post.find({ thread: id }).lean().exec(function (err, posts) {
-			if (err) return res.json('Shit done fucked up', 400);
+		var posts = db.Post.find({ thread: id }).lean().exec();
+		var thread = db.Thread.find({ _id: id }).lean().exec();
 
-			return res.json({ posts: db.helper.toJSON(posts) }, 200);
-		});
+		var data = Q.all([
+			posts, 
+			thread
+			]).then(function(data) {
+				return res.json({ 
+					posts: db.helper.toJSON(data[0]), 
+					thread: db.helper.toJSON(data[1]) }, 
+					200);
+			}, function (err) {
+				return res.json('Shit done fucked up', 400);
+			});
 	},
 
 	deletethread: function(req, res) {

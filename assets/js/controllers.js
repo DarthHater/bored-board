@@ -29,5 +29,6 @@ boredBoardApp.controller('ThreadViewCtrl', function ($scope, $http, $routeParams
 
   $http.get('api/board/viewthread/' + id).success(function(data) {
     $scope.posts = data.posts;
+    $scope.thread = data.thread;
   });
 });
