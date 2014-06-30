@@ -32,3 +32,16 @@ boredBoardApp.controller('ThreadViewCtrl', function ($scope, $http, $routeParams
     $scope.thread = data.thread;
   });
 });
+
+boredBoardApp.controller('ReplyThreadCtrl', function ($scope, $http, $routeParams) {
+    $scope.post = function () {
+      var data = new Object();
+      data.body = $scope.message.body;
+      data.thread = $scope.posts[0].thread;
+      data.creator = $scope.posts[0].thread; // lol fix me
+
+      $http.post('api/board/replythread', data).success(function(data) {
+        $scope.posts.push(data);
+      }); 
+    }
+});

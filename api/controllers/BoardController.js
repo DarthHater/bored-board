@@ -20,16 +20,17 @@ module.exports = {
 		});
 	},
 
-	replytothread: function(req, res) {
-		var id = req.param('id');
-		var body = req.param('body');
+	replythread: function(req, res) {
+		var body = req.body.body,
+			thread = req.body.thread,
+			creator = req.body.thread;
 
 		// hard coding creator to thread id for now, I'll fill in once I get User logic figured out
-		db.Post({ body: body, thread: id, creator: id}).save(function (err, post) {
+		db.Post({ body: body, thread: thread, creator: thread }).save(function (err, post) {
 			if(err) return res.view('500');
 
 			// Probably should just publish an update via socket to the view, I'll figure this out soon?
-			return res.view('thread/view');
+			return res.json(post, 200);
 		})
 	},
 
