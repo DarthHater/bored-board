@@ -37,8 +37,8 @@ boredBoardApp.controller('ReplyThreadCtrl', function ($scope, $http, $routeParam
     $scope.post = function () {
       var data = new Object();
       data.body = $scope.message.body;
-      data.thread = $scope.posts[0].thread;
-      data.creator = $scope.posts[0].thread; // lol fix me
+      data.thread = $scope.message.thread;
+      data.creator = $scope.message.creator; // lol fix me
 
       $http.post('api/board/replythread', data).success(function(data) {
         $scope.posts.push(data);

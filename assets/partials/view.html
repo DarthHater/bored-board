@@ -37,6 +37,8 @@
       <div class="form-group">
         <label id="label_body" for="body">Body:</label>
         <textarea name="body" id="body" rows=5 class="form-control" ng-model="message.body"></textarea>
+        <input type="hidden" id="thread" name="thread" ng-value="thread[0]._id" ng-model="message.thread" />
+        <input type="hidden" id="creator" name="creator" ng-value="thread[0]._id" ng-model="message.creator" />
       </div>
           <button ng-click="post()" class="btn btn-success" value="say it" id="postit"/>
           <button class="btn" name="preview" id="preview" value="preview"/>&nbsp;<sup><a href="javascript:;" onclick="$('#bbcode').slideToggle()">[help]</a></sup>
