@@ -21,15 +21,19 @@ module.exports = {
 	},
 
 	replythread: function(req, res) {
+		var socketId = sails.sockets.id(req.socket);
 		var body = req.body.body,
 			thread = req.body.thread,
 			creator = req.body.thread;
 
+		console.log(socketId);
 		// hard coding creator to thread id for now, I'll fill in once I get User logic figured out
 		db.Post({ body: body, thread: thread, creator: thread }).save(function (err, post) {
 			if(err) return res.view('500');
 
 			// Probably should just publish an update via socket to the view, I'll figure this out soon?
+			console.log(req.socket);
+	
 			return res.json(post, 200);
 		})
 	},

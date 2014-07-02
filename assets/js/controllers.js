@@ -33,7 +33,7 @@ boredBoardApp.controller('ThreadViewCtrl', function ($scope, $http, $routeParams
   });
 });
 
-boredBoardApp.controller('ReplyThreadCtrl', function ($scope, $http, $routeParams) {
+boredBoardApp.controller('ReplyThreadCtrl', function ($scope, $http, socket, $routeParams) {
     $scope.post = function () {
       var data = new Object();
       data.body = $scope.message.body;
