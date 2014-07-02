@@ -17,7 +17,7 @@ config(['$routeProvider', '$locationProvider',
       $locationProvider.html5Mode(true);
   }]);
 
-boredBoardApp.controller('ThreadListCtrl', function ($scope, socket, $http) {
+boredBoardApp.controller('ThreadListCtrl', function ($scope, socket) {
   socket.get('/api/board/listthreads', function (data) {
     var json = JSON.parse(data);
 
@@ -25,7 +25,7 @@ boredBoardApp.controller('ThreadListCtrl', function ($scope, socket, $http) {
   });
 });
 
-boredBoardApp.controller('ThreadViewCtrl', function ($scope, $http, socket, $routeParams) {
+boredBoardApp.controller('ThreadViewCtrl', function ($scope, socket, $routeParams) {
   var id = $routeParams.threadId;
 
   socket.get('/api/board/viewthread/' + id, function (data) {
