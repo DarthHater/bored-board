@@ -1,5 +1,4 @@
-var boredBoardApp = angular.module('boredBoardApp', 
-	['ngRoute']).
+var boredBoardApp = angular.module('boredBoardApp', ['ngRoute', 'boredBoardFactory']).
 config(['$routeProvider', '$locationProvider',
   function($routeProvider, $locationProvider) {
     $routeProvider.
@@ -18,24 +17,26 @@ config(['$routeProvider', '$locationProvider',
       $locationProvider.html5Mode(true);
   }]);
 
-boredBoardApp.controller('ThreadListCtrl', function ($scope, $http) {
-  $http.get('api/board/listthreads').success(function(data) {
-    $scope.threads = data.threads;
+boredBoardApp.controller('ThreadListCtrl', function ($scope, socket, $http) {
+  socket.get('/api/board/listthreads', function (data) {
+    var json = JSON.parse(data);
+
+    $scope.threads = json.threads;
   });
 });
 
-boredBoardApp.controller('ThreadViewCtrl', function ($scope, $http, $routeParams) {
+boredBoardApp.controller('ThreadViewCtrl', function ($scope, $http, socket, $routeParams) {
   var id = $routeParams.threadId;
 
-  $http.get('api/board/viewthread/' + id).success(function(data) {
-    $scope.posts = data.posts;
-    $scope.thread = data.thread;
+  socket.get('/api/board/viewthread/' + id, function (data) {
+    var json = JSON.parse(data);
+
+    $scope.posts = json.posts;
+    $scope.thread = json.thread;
   });
 });
 
 boredBoardApp.controller('ReplyThreadCtrl', function ($scope, $http, $routeParams) {
-    
-
     $scope.post = function () {
       var data = new Object();
       data.body = $scope.message.body;

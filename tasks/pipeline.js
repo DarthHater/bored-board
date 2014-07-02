@@ -28,11 +28,14 @@ var jsFilesToInject = [
   'js/dependencies/angular/angular.min.js',
   'js/dependencies/angular/angular-route.min.js',
   'js/dependencies/jquery/jquery-1.9.1.js',
+  'js/dependencies/sails.io.js',
   'js/bootstrap/bootstrap.min.js',
 
   // All of the rest of your client-side js files
   // will be injected here in no particular order.
-  'js/*.js'
+  'js/controllers.js',
+  'js/services.js',
+  'js/main.js'
 ];
 
 

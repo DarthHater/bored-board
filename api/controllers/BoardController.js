@@ -42,7 +42,9 @@ module.exports = {
 		db.Thread.find().limit(50).lean().exec(function (err, docs) {
 			if (err) return res.json('Shit done fucked up', 400);
 
-			return res.json({ threads: db.helper.toJSON(docs) }, 200);
+			console.log(docs);
+
+			return res.json({ threads: db.helper.toJSON(docs) });
 		});
 	},
 
