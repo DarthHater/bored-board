@@ -14,6 +14,8 @@ module.exports = {
 			if(err) return res.json('Shit done fucked up', 400);
 
 			db.Post({body: 'test', thread: thread._id, creator: thread._id}).save(function (err, post) {
+				
+				req.socket.emit('new:thread', thread);
 
 				return res.json('Thread and post inserted post._id: ' + post._id + ' thread._id: ' + post.thread, 200);
 			});			
@@ -28,6 +30,8 @@ module.exports = {
 		// hard coding creator to thread id for now, I'll fill in once I get User logic figured out
 		db.Post({ body: body, thread: thread, creator: thread }).save(function (err, post) {
 			if(err) return res.view('500');
+
+			req.socket.emit('new:post', post);
 	
 			return res.json(post, 200);
 		})

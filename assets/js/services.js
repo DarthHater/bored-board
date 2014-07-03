@@ -30,6 +30,15 @@ boredBoardFactory.factory('socket', function ($rootScope) {
           }
         });
       })
+    },
+    post: function(path, data, callback) {
+      socket.post(path, data, function(data) {
+        $rootScope.$apply(function () {
+          if (callback) {
+            callback.call(null, data);
+          }
+        });
+      })
     }
   }
 });

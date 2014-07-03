@@ -23,6 +23,10 @@ boredBoardApp.controller('ThreadListCtrl', function ($scope, socket) {
 
     $scope.threads = json.threads;
   });
+
+  socket.on('new:thread', function(data) {
+    $scope.threads.push(data);
+  });
 });
 
 boredBoardApp.controller('ThreadViewCtrl', function ($scope, socket, $routeParams) {
@@ -34,17 +38,23 @@ boredBoardApp.controller('ThreadViewCtrl', function ($scope, socket, $routeParam
     $scope.posts = json.posts;
     $scope.thread = json.thread;
   });
+
+  socket.on('new:post', function (data) {
+    $scope.posts.push(data);
+  }); 
 });
 
-boredBoardApp.controller('ReplyThreadCtrl', function ($scope, $http, $routeParams) {
+boredBoardApp.controller('ReplyThreadCtrl', function ($scope, socket, $http, $routeParams) {
     $scope.post = function () {
       var data = new Object();
       data.body = $scope.message.body;
-      data.thread = $scope.message.thread;
-      data.creator = $scope.message.creator; // lol fix me
+      data.thread = $scope.posts[0].thread;
+      data.creator = $scope.posts[0].thread; // lol fix me
 
-      $http.post('api/board/replythread', data).success(function(data) {
-        $scope.posts.push(data);
-      }); 
+      socket.post('/api/board/replythread', data, function (data) {
+        // var json = JSON.parse(data);
+
+        // $scope.posts.push(json);
+      });
     }
 });
