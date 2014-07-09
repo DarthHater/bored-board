@@ -25,9 +25,8 @@
       <textarea name="body" id="body" ng-model="message.body" rows=5 class="form-control"></textarea>
     </div>
   </fieldset>
-  <input type="submit" class="btn btn-success" ng-click="post()" value="say it" id="submit"/>
-  <input type="button" class="btn" name="preview" id="preview" value="preview" onclick="preview_post('form','thread',85);" />&nbsp;<sup><a href="javascript:;" onclick="$('#bbcode').slideToggle()">[help]</a></sup>
-</form>
+  <button class="btn btn-success" ng-click="post()" value="say it" id="submit">Say It</button>
+  <button class="btn" name="preview" id="preview" value="preview" onclick="preview_post('form','thread',85);">Preview</button>&nbsp;<sup><a href="javascript:;" onclick="$('#bbcode').slideToggle()">[help]</a></sup>
 <div id='bbcode' class='view' style='font-size:.85em;display:none;'>
 <pre>
 <h4>TAGS:</h4>
