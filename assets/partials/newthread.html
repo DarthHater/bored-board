@@ -1,0 +1,57 @@
+<div id="response_form" ng-controller="ThreadCreateCtrl"></div>
+  <fieldset>
+  <legend>Account</legend>
+  <div id="loggedin"><h4 style="display:inline" id="loggedinname">Feffy</h4>&nbsp;
+  (<a href="javascript:;" onclick="$('#loggedin').hide();$('#account').show();">post as someone else</a>)</div>
+  <span id="account" style="display:none">
+    <div class="form-group">
+        <label for="name">Name</label>
+        <input type="text" name="name" id="name" value="" class="form-control" />
+    </div>
+    <div class="form-group">
+        <label for="pass">Password</label>
+        <input type="password" name="pass" id="pass" value="" class="form-control"/>
+    </div>
+  </span>
+  </fieldset>
+  <fieldset>
+  <legend>New Thread</legend>
+    <div class="form-group">
+      <label id="label_title" for="title">Title:</label>
+      <input type="text" name="title" id="title" ng-model="message.title" class="form-control"></textarea>
+    </div>
+    <div class="form-group">
+      <label id="label_body" for="body">Body:</label>
+      <textarea name="body" id="body" ng-model="message.body" rows=5 class="form-control"></textarea>
+    </div>
+  </fieldset>
+  <input type="submit" class="btn btn-success" ng-click="post()" value="say it" id="submit"/>
+  <input type="button" class="btn" name="preview" id="preview" value="preview" onclick="preview_post('form','thread',85);" />&nbsp;<sup><a href="javascript:;" onclick="$('#bbcode').slideToggle()">[help]</a></sup>
+</form>
+<div id='bbcode' class='view' style='font-size:.85em;display:none;'>
+<pre>
+<h4>TAGS:</h4>
+http://www.google.com/ <-- automatic link
+[url]http://www.google.com/[/url]
+[url=http://www.google.com/]with my own link text[/url]
+[img]http://www.google.com/intl/en_ALL/images/logo.gif[/img]
+[u]underline[/u]
+[strong]bold[/strong]
+[b]bold[/b]
+[i]italic[/i]
+[em]italic[/em]
+[strike]strikethrough[/strike]
+[code]like pre[/code]
+[sub]subscript[/sub]
+[sup]superscript[/sup]
+[youtube]http://www.youtube.com/watch?v=WAwLYJYsa0A[/youtube]
+[vimeo]http://vimeo.com/11487173[/vimeo]
+[soundcloud]http://soundcloud.com/rantonio/infest[/soundcloud]
+[bandcamp]album=48165752[/bandcamp]
+[bandcamp]track=3451844715[/bandcamp]
+More info on bandcamp embedding here: http://www.macosxaudio.com/forums/viewtopic.php?f=11&t=46948
+[quote]quote[/quote]
+[spoiler]hidden text here[/spoiler]
+</pre>
+<div class='clear'></div>
+</div>

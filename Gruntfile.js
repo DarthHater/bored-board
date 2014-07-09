@@ -69,6 +69,8 @@ module.exports = function(grunt) {
 	var taskConfigurations = loadTasks('./tasks/config'),
 		registerDefinitions = loadTasks('./tasks/register');
 
+	grunt.registerTask('test', ['mochaTest']);
+
 	// (ensure that a default task exists)
 	if (!registerDefinitions.default) {
 		registerDefinitions.default = function (grunt) { grunt.registerTask('default', []); };

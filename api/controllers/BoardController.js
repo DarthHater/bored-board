@@ -10,14 +10,32 @@ var db = require('../services/db'),
 
 module.exports = {
 	createthread: function(req, res) {
-		db.Thread({ title: 'Fuck it' }).save(function (err, thread) {
-			if(err) return res.json('Shit done fucked up', 400);
+		var socket = req.socket,
+			title = req.body.title,
+			body = req.body.body;
 
-			db.Post({body: 'test', thread: thread._id, creator: thread._id}).save(function (err, post) {
+		db.Thread(
+			{ title: title }
+			)
+		.save(function (err, thread) {
+			if(err) return res.json(
+				'Shit done fucked up', 
+				500
+				);
+
+			db.Post(
+				{ body: body, thread: thread._id, creator: thread._id}
+				)
+			.save(function (err, post) {
 				
-				req.socket.emit('new:thread', thread);
+				socket.emit('new:thread', thread);
 
-				return res.json('Thread and post inserted post._id: ' + post._id + ' thread._id: ' + post.thread, 200);
+				console.log(post);
+
+				return res.json(
+					'Thread and post inserted post._id: ' + post._id + ' thread._id: ' + post.thread,
+					 200
+					 );
 			});			
 		});
 	},
@@ -25,23 +43,30 @@ module.exports = {
 	replythread: function(req, res) {
 		var body = req.body.body,
 			thread = req.body.thread,
-			creator = req.body.thread;
+			creator = req.body.thread,
+			socket = req.socket;
 
 		// hard coding creator to thread id for now, I'll fill in once I get User logic figured out
-		db.Post({ body: body, thread: thread, creator: thread }).save(function (err, post) {
-			if(err) return res.view('500');
+		db.Post({ body: body, thread: thread, creator: creator }).save(function (err, post) {
+			if(err) return res.json('SHIT DONE FUCKED UP', 500);
 
-			req.socket.emit('new:post', post);
+			socket.to(thread).emit('new:post', post);
 	
-			return res.json(post, 200);
-		})
+			return res.json(
+				{ post: post }, 
+				200
+				);
+		});
 	},
 
 	listthreads: function(req, res) {
 		db.Thread.find().limit(50).lean().exec(function (err, docs) {
-			if (err) return res.json('Shit done fucked up', 400);
+			if (err) return res.json('Shit done fucked up', 500);
 
-			return res.json({ threads: db.helper.toJSON(docs) });
+			return res.json(
+				{ threads: db.helper.toJSON(docs) },
+				200
+				);
 		});
 	},
 
@@ -60,14 +85,14 @@ module.exports = {
 					thread: db.helper.toJSON(data[1]) }, 
 					200);
 			}, function (err) {
-				return res.json('Shit done fucked up', 400);
+				return res.json('Shit done fucked up' + err, 500);
 			});
 	},
 
 	deletethread: function(req, res) {
 		var id = req.param('id');
 		db.Thread.findOneAndRemove({ _id: id }, function (err) {
-			if(err) return res.json('Shit done fucked up', 400);
+			if(err) return res.json('Shit done fucked up', 500);
 
 			return res.json('Thread: ' + id + ' successfully deleted', 200);
 		}); 

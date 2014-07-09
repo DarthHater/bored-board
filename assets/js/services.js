@@ -1,6 +1,6 @@
-var boredBoardFactory = angular.module('boredBoardFactory', []);
+var boredBoardFactory = angular.module('boredBoardFactory', ['ngRoute']);
 
-boredBoardFactory.factory('socket', function ($rootScope) {
+boredBoardFactory.factory('socket', function ($rootScope, $routeParams) {
   var socket = io.connect();
   
   return {
@@ -39,6 +39,12 @@ boredBoardFactory.factory('socket', function ($rootScope) {
           }
         });
       })
+    },
+    join: function(room, callback) {
+      socket.join(room);
+      if (callback) {
+          callback.call(null, room);
+      }
     }
   }
 });

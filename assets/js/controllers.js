@@ -1,6 +1,6 @@
 var boredBoardApp = angular.module('boredBoardApp', ['ngRoute', 'boredBoardFactory']).
-config(['$routeProvider', '$locationProvider',
-  function($routeProvider, $locationProvider) {
+config(['$routeProvider',
+  function($routeProvider) {
     $routeProvider.
       when('/thread/list', {
         templateUrl: 'partials/list.html',
@@ -10,11 +10,13 @@ config(['$routeProvider', '$locationProvider',
         templateUrl: 'partials/view.html',
         controller: 'ThreadViewCtrl'
       }).
+      when('/thread/new', {
+        templateUrl: 'partials/newthread.html',
+        controller: 'ThreadCreateCtrl'
+      }).
       otherwise({
         redirectTo: '/thread/list'
       });
-
-      $locationProvider.html5Mode(true);
   }]);
 
 boredBoardApp.controller('ThreadListCtrl', function ($scope, socket) {
@@ -29,6 +31,18 @@ boredBoardApp.controller('ThreadListCtrl', function ($scope, socket) {
   });
 });
 
+boredBoardApp.controller('ThreadCreateCtrl', function ($scope, socket) {
+  $scope.post = function () {
+    var data = new Object();
+    data.body = $scope.message.body;
+    data.title = $scope.message.title;
+
+    socket.post('/api/board/createthread', data, function(data) {
+      
+    });
+  }
+});
+
 boredBoardApp.controller('ThreadViewCtrl', function ($scope, socket, $routeParams) {
   var id = $routeParams.threadId;
 
@@ -37,6 +51,8 @@ boredBoardApp.controller('ThreadViewCtrl', function ($scope, socket, $routeParam
 
     $scope.posts = json.posts;
     $scope.thread = json.thread;
+
+    socket.join(id);
   });
 
   socket.on('new:post', function (data) {
