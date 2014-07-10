@@ -48,14 +48,20 @@ module.exports = {
 
 		// hard coding creator to thread id for now, I'll fill in once I get User logic figured out
 		db.Post({ body: body, thread: thread, creator: creator }).save(function (err, post) {
-			if(err) return res.json('SHIT DONE FUCKED UP', 500);
 
-			socket.to(thread).emit('new:post', post);
+			db.Thread.findOne({ _id: thread }, function(err, thread) {
+				if (err) return res.json('SHIT DONE FUCKED UP', 500);
+
+				thread.dateUpdated = Date.now();
+				thread.save();
+
+				socket.to(thread).emit('new:post', post);
 	
-			return res.json(
-				{ post: post }, 
-				200
-				);
+				return res.json(
+					{ post: post }, 
+					200
+					);
+			});
 		});
 	},
 

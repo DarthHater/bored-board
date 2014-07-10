@@ -9,7 +9,9 @@ module.exports = function(mongoose) {
 
 	 var schema = new mongoose.Schema({
 	 	title: String,
-	 	datePosted: { type: Date, default: Date.now }
+	 	creator: mongoose.Schema.Types.ObjectId,
+	 	datePosted: { type: Date, default: Date.now },
+	 	dateUpdated: { type: Date, default: Date.now }
 	})
 
  	try {

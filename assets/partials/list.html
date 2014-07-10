@@ -1,4 +1,4 @@
-<div class="row list" ondblclick="" ng-repeat="thread in threads">
+<div class="row list" ondblclick="" ng-repeat="thread in threads | orderBy: 'dateUpdated'">
     <div class="col-xs-3 col-md-2">
         <a href="/member/" class="memberlink">Feffy</a>
     </div>
