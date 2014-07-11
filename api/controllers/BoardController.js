@@ -60,6 +60,7 @@ module.exports = {
 				thread.updatedBy = username; 
 				thread.updatedId = user;
 				thread.dateUpdated = Date.now();
+				thread.numberOfPosts += 1;
 				thread.save();
 
 				socket.to(thread).emit('new:post', post);

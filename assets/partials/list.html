@@ -6,7 +6,7 @@
         &nbsp;<a href="javascript:;" onclick="firstpost('thread',this);return false;">&raquo;</a>&nbsp; <a href="#/thread/view/{{ thread._id }}">{{ thread.title }}</a>  
     </div>
     <div class="col-xs-2 col-md-2">
-        <span class="badge">69</span>
+        <span class="badge">{{ thread.numberOfPosts }}</span>
     </div>
     <div class="col-xs-10 col-md-4">
         <a href="#/user/{{ thread.updatedId }}">{{ thread.updatedBy }}</a> on {{ thread.dateUpdated | date: 'medium' }}
