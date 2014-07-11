@@ -29,9 +29,16 @@ module.exports = {
    * `AuthController.process()`
    */
   process: function (req, res) {
-    return res.json({
-      todo: 'process() is not implemented yet!'
-    });
+    passport.authenticate('local', function(err, user, info) {
+      if ((err) || (!user)) { 
+        res.redirect('login');
+        return;
+      }
+      req.logIn(user, function(err) {
+        if (err) res.redirect('login');
+        return res.redirect('/');
+      });
+    })(req, res);
   }
 };
 
