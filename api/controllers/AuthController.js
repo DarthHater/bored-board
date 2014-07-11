@@ -38,8 +38,14 @@ module.exports = {
           )
     .save( function(err, user) {
       if (err) return res.json('Shit done fucked up', 500);
-
-      return res.redirect('/login');
+      req.logIn(user, function (err) {
+        if (err) {
+          return res.redirect('/login');
+        }
+        else {
+          return res.redirect('/');
+        }     
+      });
     });
   },
 
@@ -60,7 +66,7 @@ module.exports = {
         res.redirect('login');
         return;
       }
-      req.logIn(user, function(err) {
+      req.logIn(user, function (err) {
         if (err) res.redirect('login');
         return res.redirect('/');
       });
