@@ -7,7 +7,6 @@ module.exports = {
 			for (var key in object) {
 				var obj = object[key];
 				obj.body = bbcode.parse(obj.body);
-				console.log(obj);
 			}
 		}
 		var newObject = JSON.stringify(object);
