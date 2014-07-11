@@ -42,6 +42,14 @@ module.exports.routes = {
     controller: 'auth',
     action: 'logout'
   },
+  'get /user/register': {
+    controller: 'auth',
+    action: 'register'
+  },
+  'post /user/register': {
+    controller: 'auth',
+    action: 'create'
+  }
   //'get /thread/view/:id': 'ThreadController.view',
   //'get /thread/list/': 'ThreadController.list',
   //'get /thread/delete/:id': 'ThreadController.delete',

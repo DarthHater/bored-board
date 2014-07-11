@@ -19,16 +19,10 @@ passport.use(new LocalStrategy (
     db.User.findOne({ username: username }, function(err, user) {
       if (err) { return done(null, err); }
       if (!user || user.length < 1) { return done(null, false, { message: 'Incorrect User'}); }
-      //bcrypt.compare(password, user.password, function(err, res) {
-        //if (!res) return done(null, false, { message: 'Invalid Password'});
-        if(password == user.password) {
-          return done(null, user);
-        }
-        else {
-          return done(null, false, {message: 'Invalid Password'});
-        }
-        
-      //});
+      bcrypt.compare(password, user.password, function(err, res) {
+        if (!res) return done(null, false, { message: 'Invalid Password'});
+          return done(null, user);  
+      });
     });
   })
 );
