@@ -1,7 +1,7 @@
 <div id="response_form" ng-controller="ThreadCreateCtrl"></div>
   <fieldset>
   <legend>Account</legend>
-  <div id="loggedin"><h4 style="display:inline" id="loggedinname">Feffy</h4>&nbsp;
+  <div id="loggedin"><h4 style="display:inline" id="loggedinname">{{ user }}</h4>&nbsp;
   (<a href="javascript:;" onclick="$('#loggedin').hide();$('#account').show();">post as someone else</a>)</div>
   <span id="account" style="display:none">
     <div class="form-group">

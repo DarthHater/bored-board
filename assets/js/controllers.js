@@ -38,7 +38,7 @@ boredBoardApp.controller('ThreadCreateCtrl', function ($scope, socket) {
     data.title = $scope.message.title;
 
     socket.post('/api/board/createthread', data, function(data) {
-      
+
     });
   }
 });
@@ -51,8 +51,6 @@ boredBoardApp.controller('ThreadViewCtrl', function ($scope, socket, $routeParam
 
     $scope.posts = json.posts;
     $scope.thread = json.thread;
-
-    socket.join(id);
   });
 
   socket.on('new:post', function (data) {

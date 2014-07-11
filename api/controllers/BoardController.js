@@ -11,11 +11,17 @@ var db = require('../services/db'),
 module.exports = {
 	createthread: function(req, res) {
 		var socket = req.socket,
+			user = req.user._id,
+			username = req.user.username,
 			title = req.body.title,
 			body = req.body.body;
 
 		db.Thread(
-			{ title: title }
+			{ title: title,
+			creator: user,
+			createdBy: username,
+			updatedBy: username,
+			updatedId: user }
 			)
 		.save(function (err, thread) {
 			if(err) return res.json(
@@ -24,13 +30,11 @@ module.exports = {
 				);
 
 			db.Post(
-				{ body: body, thread: thread._id, creator: thread._id}
+				{ body: body, thread: thread._id, creator: user, username: username}
 				)
 			.save(function (err, post) {
 				
 				socket.emit('new:thread', thread);
-
-				console.log(post);
 
 				return res.json(
 					'Thread and post inserted post._id: ' + post._id + ' thread._id: ' + post.thread,
@@ -43,15 +47,18 @@ module.exports = {
 	replythread: function(req, res) {
 		var body = req.body.body,
 			thread = req.body.thread,
-			creator = req.body.thread,
+			user = req.user._id,
+			username = req.user.username;
 			socket = req.socket;
 
 		// hard coding creator to thread id for now, I'll fill in once I get User logic figured out
-		db.Post({ body: body, thread: thread, creator: creator }).save(function (err, post) {
+		db.Post({ body: body, thread: thread, creator: user, username: username }).save(function (err, post) {
 
 			db.Thread.findOne({ _id: thread }, function(err, thread) {
 				if (err) return res.json('SHIT DONE FUCKED UP', 500);
 
+				thread.updatedBy = username; 
+				thread.updatedId = user;
 				thread.dateUpdated = Date.now();
 				thread.save();
 
@@ -82,13 +89,15 @@ module.exports = {
 		var posts = db.Post.find({ thread: id }).lean().exec();
 		var thread = db.Thread.find({ _id: id }).lean().exec();
 
+		console.log(req.user);
+
 		var data = Q.all([
 			posts, 
 			thread
 			]).then(function(data) {
 				return res.json({ 
 					posts: db.helper.toJSON(data[0]), 
-					thread: db.helper.toJSON(data[1]) }, 
+					thread: db.helper.toJSON(data[1])}, 
 					200);
 			}, function (err) {
 				return res.json('Shit done fucked up' + err, 500);

@@ -10,6 +10,7 @@ module.exports = function(mongoose) {
 	 var schema = new mongoose.Schema({
 	 	body: String,
 	 	creator: mongoose.Schema.Types.ObjectId,
+	 	username: String,
 	 	thread: mongoose.Schema.Types.ObjectId,
 	 	createdAt: { type: Date, default: Date.now }
 	})
