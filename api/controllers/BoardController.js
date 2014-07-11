@@ -89,8 +89,6 @@ module.exports = {
 		var posts = db.Post.find({ thread: id }).lean().exec();
 		var thread = db.Thread.find({ _id: id }).lean().exec();
 
-		console.log(req.user);
-
 		var data = Q.all([
 			posts, 
 			thread
