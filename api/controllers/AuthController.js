@@ -39,7 +39,7 @@ module.exports = {
     .save( function(err, user) {
       if (err) return res.json('Shit done fucked up', 500);
 
-      return res.redirect('/');
+      return res.redirect('/login');
     });
   },
 
