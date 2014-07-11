@@ -30,10 +30,12 @@ module.exports = {
 				);
 
 			db.Post(
-				{ body: body, thread: thread._id, creator: user, username: username}
+				{ body: body, 
+					thread: thread._id, 
+					creator: user, 
+					username: username }
 				)
 			.save(function (err, post) {
-				
 				socket.emit('new:thread', thread);
 
 				return res.json(
@@ -51,11 +53,20 @@ module.exports = {
 			username = req.user.username;
 			socket = req.socket;
 
-		// hard coding creator to thread id for now, I'll fill in once I get User logic figured out
-		db.Post({ body: body, thread: thread, creator: user, username: username }).save(function (err, post) {
-
-			db.Thread.findOne({ _id: thread }, function(err, thread) {
-				if (err) return res.json('SHIT DONE FUCKED UP', 500);
+		db.Post(
+			{ body: body, 
+				thread: thread, 
+				creator: user, 
+				username: username }
+				)
+		.save(function (err, post) {
+			db.Thread.findOne(
+				{ _id: thread }
+				, function(err, thread) {
+				if (err) return res.json(
+					'SHIT DONE FUCKED UP', 
+					500
+					);
 
 				thread.updatedBy = username; 
 				thread.updatedId = user;
@@ -75,7 +86,10 @@ module.exports = {
 
 	listthreads: function(req, res) {
 		db.Thread.find().limit(50).lean().exec(function (err, docs) {
-			if (err) return res.json('Shit done fucked up', 500);
+			if (err) return res.json(
+				'Shit done fucked up', 
+				500
+				);
 
 			return res.json(
 				{ threads: db.helper.toJSON(docs) },
@@ -94,21 +108,31 @@ module.exports = {
 			posts, 
 			thread
 			]).then(function(data) {
-				return res.json({ 
-					posts: db.helper.toJSON(data[0]), 
-					thread: db.helper.toJSON(data[1])}, 
-					200);
+				return res.json(
+				{ posts: db.helper.toJSON(data[0]), 
+					thread: db.helper.toJSON(data[1]) }, 
+					200
+					);
 			}, function (err) {
-				return res.json('Shit done fucked up' + err, 500);
+				return res.json(
+					'Shit done fucked up' + err,
+					 500
+					 );
 			});
 	},
 
 	deletethread: function(req, res) {
 		var id = req.param('id');
 		db.Thread.findOneAndRemove({ _id: id }, function (err) {
-			if(err) return res.json('Shit done fucked up', 500);
+			if(err) return res.json(
+				'Shit done fucked up', 
+				500
+				);
 
-			return res.json('Thread: ' + id + ' successfully deleted', 200);
+			return res.json(
+				'Thread: ' + id + ' successfully deleted', 
+				200
+				);
 		}); 
 	}
 };

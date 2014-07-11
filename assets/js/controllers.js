@@ -63,7 +63,6 @@ boredBoardApp.controller('ReplyThreadCtrl', function ($scope, socket, $http, $ro
       var data = new Object();
       data.body = $scope.message.body;
       data.thread = $scope.posts[0].thread;
-      data.creator = $scope.posts[0].thread; // lol fix me
 
       socket.post('/api/board/replythread', data, function (data) {
         // var json = JSON.parse(data);
