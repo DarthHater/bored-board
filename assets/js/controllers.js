@@ -43,7 +43,7 @@ boredBoardApp.controller('ThreadCreateCtrl', function ($scope, $location, socket
   }
 });
 
-boredBoardApp.controller('ThreadViewCtrl', function ($scope, socket, $routeParams) {
+boredBoardApp.controller('ThreadViewCtrl', function ($scope, socket, $sce, $routeParams) {
   var id = $routeParams.threadId;
 
   socket.get('/api/board/viewthread/' + id, function (data) {
@@ -55,7 +55,12 @@ boredBoardApp.controller('ThreadViewCtrl', function ($scope, socket, $routeParam
 
   socket.on('new:post', function (data) {
     $scope.posts.push(data);
-  }); 
+  });
+
+  $scope.renderHtml = function(html_code)
+  {
+    return $sce.trustAsHtml(html_code);
+  }; 
 });
 
 boredBoardApp.controller('ReplyThreadCtrl', function ($scope, socket, $http, $routeParams) {
@@ -65,9 +70,7 @@ boredBoardApp.controller('ReplyThreadCtrl', function ($scope, socket, $http, $ro
       data.thread = $scope.posts[0].thread;
 
       socket.post('/api/board/replythread', data, function (data) {
-        // var json = JSON.parse(data);
 
-        // $scope.posts.push(json);
       });
     }
 });

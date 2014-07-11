@@ -8,7 +8,7 @@
   </div>
   <div class="row post" id="post_{{ post._id }}_body">
     <div class="col-md-12">
-      <span class="postbody">{{ post.body }}</span>
+      <div class="postbody" ng-bind-html="renderHtml(post.body)"></div>
     </div>
   </div>
 </div>

@@ -6,7 +6,8 @@
  */
 
 var db = require('../services/db'),
-	Q = require('q');
+	Q = require('q'),
+	bbcode = require('bbcode');
 
 module.exports = {
 	createthread: function(req, res) {
@@ -74,7 +75,7 @@ module.exports = {
 				thread.numberOfPosts += 1;
 				thread.save();
 
-				socket.to(thread).emit('new:post', post);
+				socket.emit('new:post', post);
 	
 				return res.json(
 					{ post: post }, 
