@@ -63,7 +63,7 @@ boredBoardApp.controller('ThreadViewCtrl', function ($scope, socket, $sce, $rout
   }; 
 });
 
-boredBoardApp.controller('ReplyThreadCtrl', function ($scope, socket, $http, $routeParams) {
+boredBoardApp.controller('ReplyThreadCtrl', function ($scope, socket, $routeParams) {
     $scope.post = function () {
       var data = new Object();
       data.body = $scope.message.body;
@@ -73,4 +73,14 @@ boredBoardApp.controller('ReplyThreadCtrl', function ($scope, socket, $http, $ro
 
       });
     }
+});
+
+boredBoardApp.controller('UserViewCtrl', function ($scope, socket, $routeParams) {
+  var id = $routeParams.userId;
+
+  socket.get('/api/user/' + id, function (data) {
+    var json = JSON.parse(data);
+
+    $scope.user = json.user;
+  });
 });
