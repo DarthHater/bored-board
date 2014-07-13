@@ -8,9 +8,9 @@ module.exports = function(grunt) {
             //wrap: true,
             paths: {
                 // Major libraries
-                    jquery: '../js/dependencies/jquery/jquery-1.9.1.js',
+                    jquery: '../js/dependencies/jquery/jquery.min.js',
                     angular: '../js/dependencies/angular/angular.min.js',
-                    angularroute: '../js/dependencies/angular/angular-route.min.js',
+                    angularroute: '../js/dependencies/angular-route/angular-route.min.js',
                     sailsio: '../js/dependencies/sails.io.js',
                     controllers: '../js/controllers.js',
                     services: '../js/services.js',

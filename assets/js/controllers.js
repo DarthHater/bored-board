@@ -14,6 +14,10 @@ config(['$routeProvider',
         templateUrl: 'partials/newthread.html',
         controller: 'ThreadCreateCtrl'
       }).
+      when('/user/:userId', {
+        templateUrl: 'partials/userview.html',
+        controller: 'UserViewCtrl'
+      }).
       otherwise({
         redirectTo: '/thread/list'
       });
@@ -78,7 +82,7 @@ boredBoardApp.controller('ReplyThreadCtrl', function ($scope, socket, $routePara
 boredBoardApp.controller('UserViewCtrl', function ($scope, socket, $routeParams) {
   var id = $routeParams.userId;
 
-  socket.get('/api/user/' + id, function (data) {
+  socket.get('/api/user/view/' + id, function (data) {
     var json = JSON.parse(data);
 
     $scope.user = json.user;
