@@ -24,15 +24,15 @@ var cssFilesToInject = [
 var jsFilesToInject = [
 
   // Dependencies like sails.io.js, jQuery, or Angular
-  // are brought in here
+  // are brought in here. This order matters.
   'js/dependencies/angular/angular.min.js',
-  'js/dependencies/angular/angular-route.min.js',
-  'js/dependencies/jquery/jquery-1.9.1.js',
+  'js/dependencies/angular-route/angular-route.min.js',
+  'js/dependencies/jquery/jquery.min.js',
   'js/dependencies/sails.io.js',
-  'js/bootstrap/bootstrap.min.js',
+  'js/dependencies/bootstrap/bootstrap.min.js',
 
   // All of the rest of your client-side js files
-  // will be injected here in no particular order.
+  // are injected here, order matters
   'js/controllers.js',
   'js/services.js',
   'js/main.js'

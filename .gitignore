@@ -69,6 +69,8 @@ config/local.js
 node_modules
 bower_components
 assets/fonts/
+assets/js/dependencies/angular-route/
+assets/js/dependencies/angular/
 assets/js/dependencies/bootstrap/
 assets/js/dependencies/jquery/
 assets/styles/bootstrap/

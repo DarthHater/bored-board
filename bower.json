@@ -19,11 +19,15 @@
     "angular-picturefill": "*",
     "angular": "~1.2.20",
     "bootstrap": "~3.2.0",
-    "jquery": "~2.1.1"
+    "jquery": "~2.1.1",
+    "angular-route": "~1.2.20"
   },
   "exportsOverride": {
     "angular": {
       "js/dependencies/": "**/angular.min.js"
+    },
+    "angular-route": {
+      "js/dependencies/": "**/angular-route.min.js"
     },
     "bootstrap": {
       "js/dependencies/": "dist/js/bootstrap.min.js",

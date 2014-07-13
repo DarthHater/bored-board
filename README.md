@@ -12,6 +12,16 @@ git clone repo
 
 npm install
 
+bower install
+
+grunt bower
+
 sails lift
 
-site should be accessible via 127.0.0.1:6969 for local dev
+site should be accessible via 127.0.0.1:1337 for local dev
+
+Create a test user by accessing: 
+
+http://127.0.0.1:1337/user/register
+
+Login, create threads, etc...
