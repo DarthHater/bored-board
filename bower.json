@@ -14,5 +14,24 @@
     "app/bower_components",
     "test",
     "tests"
-  ]
+  ],
+  "dependencies": {
+    "angular-picturefill": "*",
+    "angular": "~1.2.20",
+    "bootstrap": "~3.2.0",
+    "jquery": "~2.1.1"
+  },
+  "exportsOverride": {
+    "angular": {
+      "js/dependencies/": "**/angular.min.js"
+    },
+    "bootstrap": {
+      "js/dependencies/": "dist/js/bootstrap.min.js",
+      "styles/": "dist/css/*.min.css",
+      "fonts": "dist/fonts/*.*"
+    },
+    "jquery": {
+      "js/dependencies/": "**/jquery.min.js"
+    }
+  }
 }

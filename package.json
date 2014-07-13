@@ -47,6 +47,7 @@
     "sinon": "~1.10.2",
     "assert": "~1.1.1",
     "grunt-requirejs-config": "0.0.2",
-    "grunt-contrib-requirejs": "~0.4.4"
+    "grunt-contrib-requirejs": "~0.4.4",
+    "grunt-bower-task": "~0.3.4"
   }
 }

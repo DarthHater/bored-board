@@ -68,6 +68,10 @@ config/local.js
 
 node_modules
 bower_components
+assets/fonts/
+assets/js/dependencies/bootstrap/
+assets/js/dependencies/jquery/
+assets/styles/bootstrap/
 
 
 
