@@ -75,6 +75,8 @@ module.exports = {
 				thread.numberOfPosts += 1;
 				thread.save();
 
+				post.body = bbcode.parse(post.body);
+
 				socket.emit('new:post', post);
 	
 				return res.json(
