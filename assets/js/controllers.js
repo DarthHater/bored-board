@@ -80,6 +80,7 @@ boredBoardApp.controller('ReplyThreadCtrl', function ($scope, socket, $routePara
 
         socket.post('/api/board/replythread', data, function (data) {
           $scope.message.body = null;
+          $scope.replyPostForm.$setPristine();
         });
       }
     }
