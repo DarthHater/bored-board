@@ -20,9 +20,8 @@ module.exports = {
    * `AuthController.logout()`
    */
   logout: function (req, res) {
-    return res.json({
-      todo: 'logout() is not implemented yet!'
-    });
+    req.logout();
+    res.redirect('/login');
   },
 
   /**
@@ -32,8 +31,6 @@ module.exports = {
     var username = req.body.username;
     var password = req.body.password;
     var emailAddress = req.body.emailaddress;
-
-    console.log(emailAddress);
 
     db.User(
         { username: username, 
