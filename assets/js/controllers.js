@@ -68,14 +68,16 @@ boredBoardApp.controller('ThreadViewCtrl', function ($scope, socket, $sce, $rout
 });
 
 boredBoardApp.controller('ReplyThreadCtrl', function ($scope, socket, $routeParams) {
-    $scope.post = function () {
-      var data = new Object();
-      data.body = $scope.message.body;
-      data.thread = $scope.posts[0].thread;
+    $scope.post = function (isValid) {
+      if(isValid) {
+        var data = new Object();
+        data.body = $scope.message.body;
+        data.thread = $scope.posts[0].thread;
 
-      socket.post('/api/board/replythread', data, function (data) {
-
-      });
+        socket.post('/api/board/replythread', data, function (data) {
+          $scope.message.body = null;
+        });
+      }
     }
 });
 

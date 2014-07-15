@@ -32,16 +32,18 @@
 
   <fieldset>
   <div ng-controller="ReplyThreadCtrl">
+    <form ng-submit="post(replyPostForm.$valid)" novalidate name="replyPostForm" class="replyForm"> 
     <legend>Reply</legend>
       <div class="form-group">
         <label id="label_body" for="body">Body:</label>
-        <textarea name="body" id="body" rows=5 class="form-control" ng-model="message.body"></textarea>
+        <textarea name="body" id="body" rows=5 class="form-control" ng-model="message.body" required></textarea>
+          <span class="error" ng-show="replyPostForm.body.$error.required">Post required!</span><br>
         <input type="hidden" id="thread" name="thread" ng-value="thread[0]._id" ng-model="message.thread" />
         <input type="hidden" id="creator" name="creator" ng-value="thread[0]._id" ng-model="message.creator" />
       </div>
-          <button ng-click="post()" class="btn btn-success" value="say it" id="postit">Say It</button>
-          <button class="btn" name="preview" id="preview" value="preview">Preview</button><sup><a href="javascript:;" onclick="$('#bbcode').slideToggle()">[help]</a></sup>
-    </fieldset>
+          <button type="submit" class="btn btn-success" value="say it" id="postit">Say It</button>
+    </form>
+  </fieldset>
 
   </div>
 <div id='bbcode' class='view' style='font-size:.85em;display:none;'>
@@ -70,3 +72,13 @@
     [spoiler]hidden text here[/spoiler]
   </pre>
 </div>
+
+<style type="text/css">
+  .replyForm input.ng-invalid.ng-dirty {
+    background-color: #FA787E;
+  }
+
+  .replyForm input.ng-valid.ng-dirty {
+    background-color: #78FA89;
+  }
+</style>
