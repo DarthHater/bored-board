@@ -18,6 +18,10 @@ config(['$routeProvider',
         templateUrl: 'partials/userview.html',
         controller: 'UserViewCtrl'
       }).
+      when('/user/me', {
+        templateUrl: 'partials/useredit.html',
+        controller: 'UserEditCtrl'
+      }).
       otherwise({
         redirectTo: '/thread/list'
       });

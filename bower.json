@@ -31,8 +31,7 @@
     },
     "bootstrap": {
       "js/dependencies/": "dist/js/bootstrap.min.js",
-      "styles/": "dist/css/*.min.css",
-      "fonts": "dist/fonts/*.*"
+      "fonts/": "dist/fonts/*.*"
     },
     "jquery": {
       "js/dependencies/": "**/jquery.min.js"

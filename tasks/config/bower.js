@@ -8,6 +8,7 @@
  * For usage docs see:
  * 		https://github.com/gruntjs/grunt-contrib-clean
  */
+var path = require('path');
 
 module.exports = function(grunt) {
 
