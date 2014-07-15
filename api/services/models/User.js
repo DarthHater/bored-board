@@ -13,6 +13,7 @@ module.exports = function(mongoose) {
 	var schema = new mongoose.Schema({
 	 	username: String,
 	 	password: String,
+	 	emailaddress: String,
 	 	firstName: String,
 	 	lastName: String,
 	 	threads: { type: Number, default: 0 },

@@ -31,10 +31,14 @@ module.exports = {
   create: function (req, res) {
     var username = req.body.username;
     var password = req.body.password;
+    var emailAddress = req.body.emailaddress;
+
+    console.log(emailAddress);
 
     db.User(
         { username: username, 
-          password: password }
+          password: password,
+          emailaddress: emailAddress }
           )
     .save( function(err, user) {
       if (err) return res.json('Shit done fucked up', 500);

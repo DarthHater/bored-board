@@ -11,12 +11,12 @@ module.exports = {
 		}
 
 		// remove passwords from user object
-		if(typeof object[0].password != undefined) {
-			for (var key in object) {
-				var obj = object[key];
-				delete obj.password;
-			}
-		}
+		//if(typeof object[0].password != undefined) {
+		//	for (var key in object) {
+		//		var obj = object[key];
+		//		delete obj.password;
+		//	}
+		//}
 		var newObject = JSON.stringify(object);
 		var parsedObject = JSON.parse(newObject);
 
