@@ -1,14 +1,14 @@
 <div class="row list" ondblclick="" ng-repeat="thread in threads | orderBy: '-dateUpdated'">
-    <div class="col-xs-3 col-md-2">
-        <a href="#/user/{{ thread.creator }}" class="memberlink">{{ thread.createdBy }}</a>
+    <div class="col-xs-4 col-md-2">
+        Posted by <a href="#/user/{{ thread.creator }}" class="memberlink">{{ thread.createdBy }}</a>
     </div>
-    <div class="col-xs-9 col-md-4">
-        &nbsp;<a href="javascript:;" onclick="firstpost('thread',this);return false;">&raquo;</a>&nbsp; <a href="#/thread/view/{{ thread._id }}">{{ thread.title }}</a>  
+    <div class="col-xs-8 col-md-6">
+        <a href="javascript:;" onclick="firstpost('thread',this);return false;"><a href="#/thread/view/{{ thread._id }}">{{ thread.title }}</a>  
     </div>
-    <div class="col-xs-2 col-md-2">
-        <span class="badge">{{ thread.numberOfPosts }}</span>
+    <div class="col-xs-2 col-md-1">
+        <span class="badge">{{ thread.numberOfPosts }} posts</span>
     </div>
-    <div class="col-xs-10 col-md-4">
-        <a href="#/user/{{ thread.updatedId }}">{{ thread.updatedBy }}</a> on {{ thread.dateUpdated | date: 'medium' }}
+    <div class="col-xs-10 col-md-3">
+        Last post by <a href="#/user/{{ thread.updatedId }}">{{ thread.updatedBy }}</a><br>on {{ thread.dateUpdated | date: 'medium' }}
     </div>
 </div>
