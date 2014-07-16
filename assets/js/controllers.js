@@ -40,14 +40,16 @@ boredBoardApp.controller('ThreadListCtrl', function ($scope, socket) {
 });
 
 boredBoardApp.controller('ThreadCreateCtrl', function ($scope, $location, socket) {
-  $scope.post = function () {
-    var data = new Object();
-    data.body = $scope.message.body;
-    data.title = $scope.message.title;
+  $scope.post = function (isValid) {
+    if (isValid) {
+      var data = new Object();
+      data.body = $scope.message.body;
+      data.title = $scope.message.title;
 
-    socket.post('/api/board/createthread', data, function(data) {
-      $location.path( "#/thread/list" );
-    });
+      socket.post('/api/board/createthread', data, function(data) {
+        $location.path( "#/thread/list" );
+      });
+    }
   }
 });
 
