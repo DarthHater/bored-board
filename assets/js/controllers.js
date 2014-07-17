@@ -69,18 +69,8 @@ boredBoardApp.controller('ThreadViewCtrl', function ($scope, socket, $sce, $rout
 
   $scope.renderHtml = function(html_code)
   {
-    $scope.responsiveImages();
     return $sce.trustAsHtml(html_code);
   };
-
-  $scope.responsiveImages = function() {
-    var images = document.getElementsByTagName("img");
-    var i;
-
-    for(i = 0; i < images.length; i++) {
-      images[i].className += " img-responsive";
-    }
-  } 
 });
 
 boredBoardApp.controller('ReplyThreadCtrl', function ($scope, socket, $routeParams) {
