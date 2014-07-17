@@ -9,7 +9,7 @@
       </div>
       <div class="form-group" ng-class="{ 'has-error' : newThreadForm.body.$invalid && !newThreadForm.body.$pristine }">
         <label id="label_body" for="body">Body:</label>
-        <textarea name="body" id="body" ng-model="message.body" rows=5 class="form-control" required></textarea>
+        <textarea name="body" id="body" ng-model="message.body" rows=4 class="form-control" required></textarea>
           <span class="error" ng-show="newThreadForm.body.$error.required && !newThreadForm.body.$pristine ">Thread body required!</span><br>
       </div>
     </fieldset>

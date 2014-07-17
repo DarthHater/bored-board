@@ -24,7 +24,7 @@
     <legend>Reply</legend>
       <div class="form-group" ng-class="{ 'has-error' : replyPostForm.body.$invalid && !replyPostForm.body.$pristine }">
         <label id="label_body" for="body">Body:</label>
-        <textarea name="body" id="body" rows=5 class="form-control" ng-model="message.body" required></textarea>
+        <textarea name="body" id="body" rows=4 class="form-control" ng-model="message.body" required></textarea>
           <span class="error" ng-show="replyPostForm.body.$error.required && !replyPostForm.body.$pristine ">Post required!</span><br>
         <input type="hidden" id="thread" name="thread" ng-value="thread[0]._id" ng-model="message.thread" />
         <input type="hidden" id="creator" name="creator" ng-value="thread[0]._id" ng-model="message.creator" />
