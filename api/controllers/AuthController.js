@@ -21,6 +21,7 @@ module.exports = {
    */
   logout: function (req, res) {
     req.logout();
+    res.clearCookie('userid');
     res.redirect('/login');
   },
 
@@ -39,14 +40,9 @@ module.exports = {
           )
     .save( function(err, user) {
       if (err) return res.json('Shit done fucked up', 500);
-      req.logIn(user, function (err) {
-        if (err) {
-          return res.redirect('/login');
-        }
-        else {
-          return res.redirect('/');
-        }     
-      });
+
+      // this seems odd you have to access controllers via this long method, but whatever? DRY
+      sails.controllers.auth.process(req, res);
     });
   },
 
@@ -64,14 +60,14 @@ module.exports = {
   process: function (req, res) {
     passport.authenticate('local', function(err, user, info) {
       if ((err) || (!user)) { 
-        res.redirect('login');
+        res.redirect('/login');
         return;
       }
       req.logIn(user, function (err) {
         if (err) res.redirect('login');
+        res.cookie('userid', user._id, { maxAge: 2592000000 });
         return res.redirect('/');
       });
     })(req, res);
   }
 };
-
