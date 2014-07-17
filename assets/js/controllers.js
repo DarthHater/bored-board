@@ -67,10 +67,15 @@ boredBoardApp.controller('ThreadViewCtrl', function ($scope, socket, $sce, $rout
     $scope.posts.push(data);
   });
 
-  $scope.renderHtml = function(html_code)
-  {
+  $scope.renderHtml = function(html_code) {
     return $sce.trustAsHtml(html_code);
   };
+
+  $scope.quote_post = function(id) {
+    var info = $('#post_'+id+'_info .postinfo').text();
+    var body = jQuery.trim($('#post_'+id+'_body .postbody').text());
+    $('#body').val($('#body').val()+'[quote]'+info+'\n'+body+'[/quote]\n\n');
+  }
 });
 
 boredBoardApp.controller('ReplyThreadCtrl', function ($scope, socket, $routeParams) {

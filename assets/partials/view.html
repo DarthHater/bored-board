@@ -3,7 +3,7 @@
   <div class="row post" id="post_{{ post._id }}_info">
       <div class="col-md-12">
     		<span class="postinfo"><a href="#/user/{{ post.creator }}" class="memberlink">{{ post.username }}</a> posted this on {{ post.createdAt | date: 'medium' }}</span>
-      		&nbsp;&raquo; quote</a>&nbsp;&raquo;
+      		&nbsp;&raquo; <a ng-click="quote_post(post._id)">quote</a>&nbsp;&raquo;
     </div>
   </div>
   <div class="row post" id="post_{{ post._id }}_body">
