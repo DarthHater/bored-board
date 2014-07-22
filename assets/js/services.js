@@ -1,5 +1,33 @@
 var boredBoardFactory = angular.module('boredBoardFactory', ['ngRoute']);
 
+boredBoardFactory.factory('Scroll', function (socket, $rootScope) {
+  var threads = [];
+  var busy = false;
+  var after = '';
+
+    return { 
+      init: function (callback) {
+      socket.get('/api/board/listthreads', function (data) {
+        if(callback) {
+          callback.call(null, data);
+        }
+      })
+    },
+    nextPage: function (callback) {
+      if (this.busy) return;
+      this.busy = true;
+
+      socket.get('/api/board/listthreads', function (data) {
+        var json = JSON.parse(data);
+        if(callback) {
+          this.busy = false;
+          callback.call(null, data);
+        }
+      })
+    }
+  }
+});
+
 boredBoardFactory.factory('socket', function ($rootScope, $routeParams) {
   var socket = io.connect();
   

@@ -1,4 +1,4 @@
-var boredBoardApp = angular.module('boredBoardApp', ['ngRoute', 'boredBoardFactory']).
+var boredBoardApp = angular.module('boredBoardApp', ['ngRoute', 'infinite-scroll', 'boredBoardFactory']).
 config(['$routeProvider',
   function($routeProvider) {
     $routeProvider.
@@ -27,11 +27,20 @@ config(['$routeProvider',
       });
   }]);
 
-boredBoardApp.controller('ThreadListCtrl', function ($scope, socket) {
-  socket.get('/api/board/listthreads', function (data) {
+boredBoardApp.controller('ThreadListCtrl', function ($scope, socket, Scroll) {
+  
+  Scroll.init(function(data) {
     var json = JSON.parse(data);
 
     $scope.threads = json.threads;
+  });
+
+  Scroll.nextPage(function(data) {
+    var json = JSON.parse(data);
+    for (thread in json.threads) {
+      console.log(thread);
+      $scope.threads.push(thread);
+    }
   });
 
   socket.on('new:thread', function(data) {

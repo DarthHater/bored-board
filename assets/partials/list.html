@@ -1,14 +1,17 @@
-<div class="row list" ondblclick="" ng-repeat="thread in threads | orderBy: '-dateUpdated'">
-    <div class="col-xs-4 col-md-2">
-        Posted by <a href="#/user/{{ thread.creator }}" class="memberlink">{{ thread.createdBy }}</a>
+<div infinite-scroll="Scroll.nextPage()" infinite-scroll-disabled="Scroll.busy" infinite-scroll-distance='1'>
+    <div class="row list" ondblclick="" ng-repeat="thread in threads | orderBy: '-dateUpdated'">
+        <div class="col-xs-4 col-md-2">
+            Posted by <a href="#/user/{{ thread.creator }}" class="memberlink">{{ thread.createdBy }}</a>
+        </div>
+        <div class="col-xs-8 col-md-6">
+            <a href="javascript:;" onclick="firstpost('thread',this);return false;"><a href="#/thread/view/{{ thread._id }}">{{ thread.title }}</a>  
+        </div>
+        <div class="col-xs-2 col-md-1">
+            <span class="badge">{{ thread.numberOfPosts }} posts</span>
+        </div>
+        <div class="col-xs-10 col-md-3">
+            Last post by <a href="#/user/{{ thread.updatedId }}">{{ thread.updatedBy }}</a><br>on {{ thread.dateUpdated | date: 'medium' }}
+        </div>
     </div>
-    <div class="col-xs-8 col-md-6">
-        <a href="javascript:;" onclick="firstpost('thread',this);return false;"><a href="#/thread/view/{{ thread._id }}">{{ thread.title }}</a>  
-    </div>
-    <div class="col-xs-2 col-md-1">
-        <span class="badge">{{ thread.numberOfPosts }} posts</span>
-    </div>
-    <div class="col-xs-10 col-md-3">
-        Last post by <a href="#/user/{{ thread.updatedId }}">{{ thread.updatedBy }}</a><br>on {{ thread.dateUpdated | date: 'medium' }}
-    </div>
+    <div ng-show="busy">Loading data...</div>
 </div>

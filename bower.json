@@ -20,7 +20,8 @@
     "angular": "~1.2.20",
     "bootstrap": "~3.2.0",
     "jquery": "~2.1.1",
-    "angular-route": "~1.2.20"
+    "angular-route": "~1.2.20",
+    "ngInfiniteScroll": "~1.1.2"
   },
   "exportsOverride": {
     "angular": {
@@ -28,6 +29,9 @@
     },
     "angular-route": {
       "js/dependencies/": "**/angular-route.min.js"
+    },
+    "ngInfiniteScroll": {
+      "js/dependencies/": "**/ng-infinite-scroll.min.js"
     },
     "bootstrap": {
       "js/dependencies/": "dist/js/bootstrap.min.js",

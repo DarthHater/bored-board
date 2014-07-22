@@ -25,11 +25,13 @@ var jsFilesToInject = [
 
   // Dependencies like sails.io.js, jQuery, or Angular
   // are brought in here. This order matters.
+  'js/dependencies/jquery/jquery.min.js',
   'js/dependencies/angular/angular.min.js',
   'js/dependencies/angular-route/angular-route.min.js',
-  'js/dependencies/jquery/jquery.min.js',
+  'js/dependencies/ngInfiniteScroll/ng-infinite-scroll.min.js',
   'js/dependencies/sails.io.js',
   'js/dependencies/bootstrap/bootstrap.min.js',
+  'ngs-header.min.js',
 
   // All of the rest of your client-side js files
   // are injected here, order matters
