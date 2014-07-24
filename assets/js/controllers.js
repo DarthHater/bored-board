@@ -34,6 +34,8 @@ boredBoardApp.controller('ThreadListCtrl', function ($scope, socket, Scroll) {
   scroll.init(function (data) {
     $scope.threads = data.threads;
   });
+
+  $scope.busy = scroll.busy;
   
   $scope.nextPage = function() {
       scroll.nextPage(function (data) {
