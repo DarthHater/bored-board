@@ -1,20 +1,19 @@
 <h3>{{ thread[0].title }}</h3>
-<div id="threadposts" ng-repeat="post in posts">
-  <div class="row post" id="post_{{ post._id }}_info">
+<div infinite-scroll="nextPage()" infinite-scroll-disabled="scroll.busy" infinite-scroll-distance="1">
+  <div id="threadposts" ng-repeat="post in posts">
+    <div class="row post" id="post_{{ post._id }}_info">
+        <div class="col-md-12">
+      		<span class="postinfo"><a href="#/user/{{ post.creator }}" class="memberlink">{{ post.username }}</a> posted this on {{ post.createdAt | date: 'medium' }}</span>
+        		&nbsp;&raquo; <a ng-click="quote_post(post._id)">quote</a>&nbsp;&raquo;
+      </div>
+    </div>
+    <div class="row post" id="post_{{ post._id }}_body">
       <div class="col-md-12">
-    		<span class="postinfo"><a href="#/user/{{ post.creator }}" class="memberlink">{{ post.username }}</a> posted this on {{ post.createdAt | date: 'medium' }}</span>
-      		&nbsp;&raquo; <a ng-click="quote_post(post._id)">quote</a>&nbsp;&raquo;
+        <div class="postbody" ng-bind-html="renderHtml(post.body)"></div>
+      </div>
     </div>
   </div>
-  <div class="row post" id="post_{{ post._id }}_body">
-    <div class="col-md-12">
-      <div class="postbody" ng-bind-html="renderHtml(post.body)"></div>
-    </div>
-  </div>
-</div>
-
-<div class="text-center">
-  <button value="Load More" class="btn center" id="loadmore" ng-click="loadmore()">Load More Posts</button>
+  <div ng-show="scroll.busy">Loading data...</div>
 </div>
 
 <div id="response_form"></div>
