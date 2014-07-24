@@ -88,6 +88,7 @@ boredBoardApp.controller('ThreadViewCtrl', function ($scope, socket, $sce, $rout
 
   socket.on('new:post', function (data) {
     $scope.posts.push(data);
+    scroll.after = data.createdAt;
   });
 
   $scope.renderHtml = function(html_code) {
