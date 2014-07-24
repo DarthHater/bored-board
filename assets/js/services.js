@@ -2,12 +2,13 @@ var boredBoardFactory = angular.module('boredBoardFactory', ['ngRoute']);
 
 boredBoardFactory.factory('Scroll', function (socket) {
   
-  var Scroll = function(url, initial) {
+  var Scroll = function(url, initial, type) {
     this.threads = [];
     this.busy = false;
     this.after = '';
     this.path = url;
     this.grab = initial;
+    this.objecttype = type;
   };
 
   Scroll.prototype.init = function (callback) {
@@ -16,8 +17,14 @@ boredBoardFactory.factory('Scroll', function (socket) {
       var json = JSON.parse(data);
       if(callback) {
         callback.call(null, json);
-        last = json.threads[json.threads.length -1];
-        this.after = encodeURIComponent(last.dateUpdated);
+        if (this.objecttype === 'threads') {
+          last = json.threads[json.threads.length -1];
+          this.after = encodeURIComponent(last.dateUpdated);
+        }
+        else {
+          last = json.posts[json.posts.length -1];
+          this.after = encodeURIComponent(last.createdAt);
+        }
         this.busy = false;
       }
     }.bind(this));

@@ -29,7 +29,7 @@ config(['$routeProvider',
 
 boredBoardApp.controller('ThreadListCtrl', function ($scope, socket, Scroll) {
   
-  var scroll = new Scroll('/api/board/listthreads', 15);
+  var scroll = new Scroll('/api/board/listthreads', 15, 'threads');
 
   scroll.init(function (data) {
     $scope.threads = data.threads;
@@ -65,15 +65,26 @@ boredBoardApp.controller('ThreadCreateCtrl', function ($scope, $location, socket
   }
 });
 
-boredBoardApp.controller('ThreadViewCtrl', function ($scope, socket, $sce, $routeParams) {
+boredBoardApp.controller('ThreadViewCtrl', function ($scope, socket, $sce, $routeParams, Scroll) {
   var id = $routeParams.threadId;
 
-  socket.get('/api/board/viewthread/' + id, function (data) {
-    var json = JSON.parse(data);
+  var scroll = new Scroll('/api/board/viewthread/' + id, 15, 'posts');
 
-    $scope.posts = json.posts;
-    $scope.thread = json.thread;
+  scroll.init(function (data) {
+    $scope.posts = data.posts;
+    $scope.thread = data.thread;
   });
+
+  $scope.busy = scroll.busy;
+  
+  $scope.nextPage = function() {
+      scroll.nextPage(function (data) {
+      for (post in data.posts) {
+        $scope.posts.push(data.posts[post]);
+        scroll.after = encodeURIComponent(data.posts[post].createdAt);
+      }
+    });
+  }
 
   socket.on('new:post', function (data) {
     $scope.posts.push(data);

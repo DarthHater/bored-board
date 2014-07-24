@@ -124,8 +124,21 @@ module.exports = {
 
 	viewthread: function(req, res) {
 		var id = req.param('id');
+		var after = req.param('after');
+		var grab = req.param('initial');
 
-		var posts = db.Post.find({ thread: id }).sort('createdAt').lean().exec();
+		console.log(after);
+		console.log(grab);
+
+		var date = new Date(decodeURIComponent(after));
+		var posts = new Object();
+		if (typeof after === 'undefined') {
+			posts = db.Post.find({ thread: id }).limit(grab).sort('createdAt').lean().exec();
+		}
+		else {
+			posts = db.Post.find({ thread: id, createdAt: {$gt: date} }).limit(5).sort('createdAt').lean().exec();
+		}
+		
 		var thread = db.Thread.find({ _id: id }).lean().exec();
 
 		var data = Q.all([
@@ -139,7 +152,7 @@ module.exports = {
 					);
 			}, function (err) {
 				return res.json(
-					'Shit done fucked up' + err,
+					'Shit done fucked up' + err.message,
 					 500
 					 );
 			});
