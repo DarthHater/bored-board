@@ -38,8 +38,7 @@ boredBoardApp.controller('ThreadListCtrl', function ($scope, socket, Scroll) {
   Scroll.nextPage(function(data) {
     var json = JSON.parse(data);
     for (thread in json.threads) {
-      console.log(thread);
-      $scope.threads.push(thread);
+      $scope.threads.push(json.threads[thread]);
     }
   });
 
