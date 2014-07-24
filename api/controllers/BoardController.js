@@ -112,9 +112,7 @@ module.exports = {
 				'Shit done fucked up' + err.message, 
 				500
 				);
-
-			console.log(date);
-
+				
 			return res.json(
 				{ threads: db.helper.toJSON(docs) },
 				200
