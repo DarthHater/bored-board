@@ -93,7 +93,7 @@ module.exports = {
 		var date = new Date(decodeURIComponent(after));
 
 		if (typeof after === 'undefined') {
-			db.Thread.find().sort('-dateUpdated').limit(10).lean().exec(function (err, docs) {
+			db.Thread.find().sort('-dateUpdated').limit(15).lean().exec(function (err, docs) {
 				if (err) return res.json(
 				'Shit done fucked up' + err.message, 
 				500
