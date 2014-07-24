@@ -29,7 +29,7 @@ config(['$routeProvider',
 
 boredBoardApp.controller('ThreadListCtrl', function ($scope, socket, Scroll) {
   
-  var scroll = new Scroll();
+  var scroll = new Scroll('/api/board/listthreads', 15);
 
   scroll.init(function (data) {
     $scope.threads = data.threads;

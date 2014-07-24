@@ -89,11 +89,12 @@ module.exports = {
 
 	listthreads: function(req, res) {
 		var after = req.param('after');
+		var grab = req.param('initial');
 
 		var date = new Date(decodeURIComponent(after));
 
 		if (typeof after === 'undefined') {
-			db.Thread.find().sort('-dateUpdated').limit(15).lean().exec(function (err, docs) {
+			db.Thread.find().sort('-dateUpdated').limit(grab).lean().exec(function (err, docs) {
 				if (err) return res.json(
 				'Shit done fucked up' + err.message, 
 				500
@@ -112,7 +113,7 @@ module.exports = {
 				'Shit done fucked up' + err.message, 
 				500
 				);
-				
+
 			return res.json(
 				{ threads: db.helper.toJSON(docs) },
 				200
