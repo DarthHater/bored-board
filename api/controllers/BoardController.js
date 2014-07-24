@@ -126,7 +126,7 @@ module.exports = {
 	viewthread: function(req, res) {
 		var id = req.param('id');
 
-		var posts = db.Post.find({ thread: id }).sort('createdAt').limit(25).lean().exec();
+		var posts = db.Post.find({ thread: id }).sort('createdAt').lean().exec();
 		var thread = db.Thread.find({ _id: id }).lean().exec();
 
 		var data = Q.all([
