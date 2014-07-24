@@ -1,4 +1,4 @@
-<div infinite-scroll="Scroll.nextPage()" infinite-scroll-disabled="Scroll.busy" infinite-scroll-distance="0">
+<div infinite-scroll="nextPage()" infinite-scroll-disabled="scroll.busy" infinite-scroll-distance="0">
     <div class="row list" ondblclick="" ng-repeat="thread in threads | orderBy: '-dateUpdated'">
         <div class="col-xs-4 col-md-2">
             Posted by <a href="#/user/{{ thread.creator }}" class="memberlink">{{ thread.createdBy }}</a>
@@ -13,5 +13,5 @@
             Last post by <a href="#/user/{{ thread.updatedId }}">{{ thread.updatedBy }}</a><br>on {{ thread.dateUpdated | date: 'medium' }}
         </div>
     </div>
-    <div ng-show="Scroll.busy">Loading data...</div>
+    <div ng-show="scroll.busy">Loading data...</div>
 </div>

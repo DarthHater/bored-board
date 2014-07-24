@@ -29,18 +29,20 @@ config(['$routeProvider',
 
 boredBoardApp.controller('ThreadListCtrl', function ($scope, socket, Scroll) {
   
-  Scroll.init(function(data) {
-    var json = JSON.parse(data);
+  var scroll = new Scroll();
 
-    $scope.threads = json.threads;
+  scroll.init(function (data) {
+    $scope.threads = data.threads;
   });
-
-  Scroll.nextPage(function(data) {
-    var json = JSON.parse(data);
-    for (thread in json.threads) {
-      $scope.threads.push(json.threads[thread]);
-    }
-  });
+  
+  $scope.nextPage = function() {
+      scroll.nextPage(function (data) {
+      for (thread in data.threads) {
+        $scope.threads.push(data.threads[thread]);
+        scroll.after = encodeURIComponent(data.threads[thread].dateUpdated);
+      }
+    });
+  }
 
   socket.on('new:thread', function(data) {
     $scope.threads.push(data);

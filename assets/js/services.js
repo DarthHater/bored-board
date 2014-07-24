@@ -1,31 +1,40 @@
 var boredBoardFactory = angular.module('boredBoardFactory', ['ngRoute']);
 
-boredBoardFactory.factory('Scroll', function (socket, $rootScope) {
-  var threads = [];
-  var busy = false;
-  var after = '';
+boredBoardFactory.factory('Scroll', function (socket) {
+  
+  var Scroll = function() {
+    this.threads = [];
+    this.busy = false;
+    this.after = '';
+  };
 
-    return { 
-      init: function (callback) {
-      socket.get('/api/board/listthreads', function (data) {
-        if(callback) {
-          callback.call(null, data);
-        }
-      })
-    },
-    nextPage: function (callback) {
-      if (this.busy) return;
-      this.busy = true;
+  Scroll.prototype.init = function (callback) {
+    this.busy = true;
+    socket.get('/api/board/listthreads', function (data) {
+      var json = JSON.parse(data);
+      if(callback) {
+        callback.call(null, json);
+        last = json.threads[json.threads.length -1];
+        this.after = encodeURIComponent(last.dateUpdated);
+        this.busy = false;
+      }
+    }.bind(this));
+  };
 
-      socket.get('/api/board/listthreads', function (data) {
-        var json = JSON.parse(data);
-        if(callback) {
-          this.busy = false;
-          callback.call(null, data);
-        }
-      })
-    }
-  }
+  Scroll.prototype.nextPage = function (callback) {
+    if (this.busy) return;
+    this.busy = true;
+
+    socket.get('/api/board/listthreads?after=' + this.after, function (data) {
+      var json = JSON.parse(data);
+      if(callback) {
+        callback.call(null, json);
+        this.busy = false;
+      }
+    }.bind(this));
+  };
+
+  return Scroll;
 });
 
 boredBoardFactory.factory('socket', function ($rootScope, $routeParams) {

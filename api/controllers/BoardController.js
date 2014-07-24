@@ -88,23 +88,45 @@ module.exports = {
 	},
 
 	listthreads: function(req, res) {
-		db.Thread.find().limit(50).lean().exec(function (err, docs) {
-			if (err) return res.json(
-				'Shit done fucked up', 
+		var after = req.param('after');
+
+		var date = new Date(decodeURIComponent(after));
+
+		if (typeof after === 'undefined') {
+			db.Thread.find().sort('-dateUpdated').limit(5).lean().exec(function (err, docs) {
+				if (err) return res.json(
+				'Shit done fucked up' + err.message, 
 				500
 				);
+
+				return res.json(
+					{ threads: db.helper.toJSON(docs) },
+					200
+					);
+			});
+		}
+		else
+		{
+			db.Thread.find({ dateUpdated: {$lt: date}}).sort('-dateUpdated').limit(5).lean().exec(function (err, docs) {
+			if (err) return res.json(
+				'Shit done fucked up' + err.message, 
+				500
+				);
+
+			console.log(date);
 
 			return res.json(
 				{ threads: db.helper.toJSON(docs) },
 				200
 				);
-		});
+			});
+		}
 	},
 
 	viewthread: function(req, res) {
 		var id = req.param('id');
 
-		var posts = db.Post.find({ thread: id }).lean().exec();
+		var posts = db.Post.find({ thread: id }).sort('createdAt').limit(25).lean().exec();
 		var thread = db.Thread.find({ _id: id }).lean().exec();
 
 		var data = Q.all([
