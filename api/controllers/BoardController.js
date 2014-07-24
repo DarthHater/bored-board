@@ -127,9 +127,6 @@ module.exports = {
 		var after = req.param('after');
 		var grab = req.param('initial');
 
-		console.log(after);
-		console.log(grab);
-
 		var date = new Date(decodeURIComponent(after));
 		var posts = new Object();
 		if (typeof after === 'undefined') {
