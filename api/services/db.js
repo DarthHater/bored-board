@@ -12,13 +12,11 @@ mongoose.connect('mongodb://localhost/bored-board');
  
 var db = mongoose.connection;
  
-console.log('Try to connect to MongoDB via Mongoose ...');
+console.log('Trying to connect to MongoDB via Mongoose ...');
  
 db.on('error', console.error.bind(console, 'Mongoose connection error:'));
 db.once('open', function callback() {
- 
     console.log('Connected to MongoDB !');
- 
 });
 
 module.exports = {
@@ -26,4 +24,4 @@ module.exports = {
 	User: require('./models/User.js')(mongoose),
 	Post: require('./models/Post.js')(mongoose),
 	helper: require('./models/Helpers.js')
-}
+};

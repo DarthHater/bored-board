@@ -66,7 +66,7 @@ boredBoardFactory.factory('socket', function ($rootScope, $routeParams) {
             callback.apply(socket, args);
           }
         });
-      })
+      });
     },
     get: function (path, callback) {
       socket.get(path, function (data) {
@@ -75,7 +75,7 @@ boredBoardFactory.factory('socket', function ($rootScope, $routeParams) {
             callback.call(null, data);
           }
         });
-      })
+      });
     },
     post: function(path, data, callback) {
       socket.post(path, data, function(data) {
@@ -84,7 +84,7 @@ boredBoardFactory.factory('socket', function ($rootScope, $routeParams) {
             callback.call(null, data);
           }
         });
-      })
+      });
     },
     join: function(room, callback) {
       socket.join(room);
@@ -92,5 +92,5 @@ boredBoardFactory.factory('socket', function ($rootScope, $routeParams) {
           callback.call(null, room);
       }
     }
-  }
+  };
 });

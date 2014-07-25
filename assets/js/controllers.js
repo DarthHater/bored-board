@@ -39,12 +39,12 @@ boredBoardApp.controller('ThreadListCtrl', function ($scope, socket, Scroll) {
   
   $scope.nextPage = function() {
       scroll.nextPage(function (data) {
-      for (thread in data.threads) {
+      for (var thread in data.threads) {
         $scope.threads.push(data.threads[thread]);
         scroll.after = encodeURIComponent(data.threads[thread].dateUpdated);
       }
     });
-  }
+  };
 
   socket.on('new:thread', function(data) {
     $scope.threads.push(data);
@@ -54,7 +54,7 @@ boredBoardApp.controller('ThreadListCtrl', function ($scope, socket, Scroll) {
 boredBoardApp.controller('ThreadCreateCtrl', function ($scope, $location, socket) {
   $scope.post = function (isValid) {
     if (isValid) {
-      var data = new Object();
+      var data = {};
       data.body = $scope.message.body;
       data.title = $scope.message.title;
 
@@ -62,7 +62,7 @@ boredBoardApp.controller('ThreadCreateCtrl', function ($scope, $location, socket
         $location.path( "#/thread/list" );
       });
     }
-  }
+  };
 });
 
 boredBoardApp.controller('ThreadViewCtrl', function ($scope, socket, $sce, $routeParams, Scroll) {
@@ -79,12 +79,12 @@ boredBoardApp.controller('ThreadViewCtrl', function ($scope, socket, $sce, $rout
   
   $scope.nextPage = function() {
       scroll.nextPage(function (data) {
-      for (post in data.posts) {
+      for (var post in data.posts) {
         $scope.posts.push(data.posts[post]);
         scroll.after = encodeURIComponent(data.posts[post].createdAt);
       }
     });
-  }
+  };
 
   socket.on('new:post', function (data) {
     $scope.posts.push(data);
@@ -99,13 +99,13 @@ boredBoardApp.controller('ThreadViewCtrl', function ($scope, socket, $sce, $rout
     var info = $('#post_'+id+'_info .postinfo').text();
     var body = jQuery.trim($('#post_'+id+'_body .postbody').text());
     $('#body').val($('#body').val()+'[quote]'+info+'\n'+body+'[/quote]\n\n');
-  }
+  };
 });
 
 boredBoardApp.controller('ReplyThreadCtrl', function ($scope, socket, $routeParams) {
     $scope.post = function (isValid) {
       if(isValid) {
-        var data = new Object();
+        var data = {};
         data.body = $scope.message.body;
         data.thread = $scope.posts[0].thread;
 
@@ -114,7 +114,7 @@ boredBoardApp.controller('ReplyThreadCtrl', function ($scope, socket, $routePara
           $scope.replyPostForm.$setPristine();
         });
       }
-    }
+    };
 });
 
 boredBoardApp.controller('UserViewCtrl', function ($scope, socket, $routeParams) {

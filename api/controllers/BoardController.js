@@ -128,7 +128,8 @@ module.exports = {
 		var grab = req.param('initial');
 
 		var date = new Date(decodeURIComponent(after));
-		var posts = new Object();
+		var posts = {};
+		
 		if (typeof after === 'undefined') {
 			posts = db.Post.find({ thread: id }).limit(grab).sort('createdAt').lean().exec();
 		}
