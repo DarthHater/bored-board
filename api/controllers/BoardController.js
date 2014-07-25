@@ -62,8 +62,8 @@ module.exports = {
 				)
 		.save(function (err, post) {
 			db.Thread.findOne(
-				{ _id: thread }
-				, function(err, thread) {
+				{ _id: thread }, 
+				function(err, thread) {
 				if (err) return res.json(
 					'SHIT DONE FUCKED UP', 
 					500
@@ -129,7 +129,7 @@ module.exports = {
 
 		var date = new Date(decodeURIComponent(after));
 		var posts = {};
-		
+
 		if (typeof after === 'undefined') {
 			posts = db.Post.find({ thread: id }).limit(grab).sort('createdAt').lean().exec();
 		}

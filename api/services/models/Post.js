@@ -13,11 +13,11 @@ module.exports = function(mongoose) {
 	 	username: String,
 	 	thread: mongoose.Schema.Types.ObjectId,
 	 	createdAt: { type: Date, default: Date.now }
-	})
+	});
 
  	try {
         mongoose.model('Post', schema);
     } catch (error) {}
 
     return mongoose.model('Post');
-}
+};

@@ -16,11 +16,11 @@ module.exports = function(mongoose) {
 	 	datePosted: { type: Date, default: Date.now },
 	 	dateUpdated: { type: Date, default: Date.now },
 	 	numberOfPosts: { type: Number, default: 1 }
-	})
+	});
 
  	try {
         mongoose.model('Thread', schema);
     } catch (error) {}
 
     return mongoose.model('Thread');
-}
+};

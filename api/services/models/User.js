@@ -19,7 +19,7 @@ module.exports = function(mongoose) {
 	 	threads: { type: Number, default: 0 },
 	 	posts: { type: Number, default: 0 },
 	 	createdAt: { type: Date, default: Date.now }
-	})
+	});
 
 	schema.pre('save', function(next) {
 		var user = this; 
@@ -35,7 +35,7 @@ module.exports = function(mongoose) {
 				next();
 			});
 		});
-	})
+	});
 
 	schema.method('toJSON', function() {
 		var user = this.toObject();
@@ -43,11 +43,11 @@ module.exports = function(mongoose) {
 		delete user.password;
 
 		return user;
-	})
+	});
 
  	try {
         mongoose.model('User', schema);
     } catch (error) {}
 
     return mongoose.model('User');
-}
+};
