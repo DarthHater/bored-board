@@ -28,7 +28,8 @@
     "bcrypt": "~0.7.8",
     "passport-local": "~1.0.0",
     "q": "~1.0.1",
-    "bbcode": "~0.1.5"
+    "bbcode": "~0.1.5",
+    "newrelic": "~1.8.1"
   },
   "scripts": {
     "start": "node app.js",

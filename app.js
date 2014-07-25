@@ -19,6 +19,9 @@
  */
 
 // Ensure a "sails" can be located:
+
+var newrelic = require('newrelic');
+
 var sails;
 try {
 	sails = require('sails');
