@@ -5,6 +5,7 @@ boredBoardFactory.factory('Scroll', function (socket) {
   var Scroll = function(url, initial, type) {
     this.threads = [];
     this.busy = false;
+    this.initialize = false;
     this.after = '';
     this.path = url;
     this.grab = initial;
@@ -13,6 +14,7 @@ boredBoardFactory.factory('Scroll', function (socket) {
 
   Scroll.prototype.init = function (callback) {
     this.busy = true;
+    this.initialize = true;
     socket.get(this.path + '?initial=' + this.grab, function (data) {
       var json = JSON.parse(data);
       if(callback) {
@@ -31,7 +33,7 @@ boredBoardFactory.factory('Scroll', function (socket) {
   };
 
   Scroll.prototype.nextPage = function (callback) {
-    if (this.busy) return;
+    if (this.busy || this.initialize == false) return;
     this.busy = true;
 
     socket.get(this.path + '?after=' + this.after, function (data) {
