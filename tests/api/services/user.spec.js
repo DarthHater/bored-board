@@ -1,11 +1,11 @@
 var mongoose = require('mongoose'),
     User = require('../../../api/services/models/User')(mongoose),
     assert = require('chai').assert,
-    expect = require('chai').expect,
-    should = require('chai').should;
+    expect = require('chai').expect;
 
 describe('The User Model', function () {
     before(function() {
+        mongoose.connect('mongodb://localhost/bored-board');
         User({
             username: 'testuser',
             password: 'testpassword',
