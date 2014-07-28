@@ -1,7 +1,8 @@
 var mongoose = require('mongoose'),
     User = require('../../../api/services/models/User')(mongoose),
     assert = require('chai').assert,
-    expect = require('chai').expect;
+    expect = require('chai').expect,
+    should = require('chai').should;
 
 describe('The User Model', function () {
     before(function() {
@@ -34,7 +35,7 @@ describe('The User Model', function () {
                 password: 'testpassword',
                 emailaddress: 'newtest@test.com'
             }).save(function (err, user) {
-                expect(err.message).to.equal('Validation failed');
+                expect(err.errors.emailaddress.message).to.equal('Validator failed for path `emailaddress` with value `newtest@test.com`');
                 done();
             });
         });
@@ -47,7 +48,7 @@ describe('The User Model', function () {
                 password: 'anothertest',
                 emailaddress: 'differentemailaddress@gmail.com'
             }).save(function (err, user) {
-                expect(err.message).to.equal('Validation failed');
+                expect(err.errors.username.message).to.equal('Validator failed for path `username` with value `testuser`');
                 done();
             });
         });
