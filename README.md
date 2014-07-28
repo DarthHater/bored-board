@@ -1,5 +1,7 @@
 # bored-board
 
+[![Build Status](https://travis-ci.org/DarthHater/bored-board.svg?branch=master)](https://travis-ci.org/DarthHater/bored-board)
+
 a [Sails](http://sailsjs.org) application
 
 ### Setup
@@ -12,7 +14,7 @@ git clone repo
 
 npm install
 
-bower install
+bower install (make sure to install bower)
 
 grunt bower
 
@@ -25,3 +27,5 @@ Create a test user by accessing:
 http://127.0.0.1:1337/user/register
 
 Login, create threads, etc...
+
+Tests available via npm test or grunt test at project root
