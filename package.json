@@ -29,7 +29,8 @@
     "passport-local": "~1.0.0",
     "q": "~1.0.1",
     "bbcode": "~0.1.5",
-    "newrelic": "~1.8.1"
+    "newrelic": "~1.8.1",
+    "mongoose-unique-validator": "~0.3.0"
   },
   "scripts": {
     "start": "node app.js",
@@ -50,6 +51,7 @@
     "grunt-requirejs-config": "0.0.2",
     "grunt-contrib-requirejs": "~0.4.4",
     "grunt-bower-task": "~0.3.4",
-    "grunt-contrib-jshint": "~0.10.0"
+    "grunt-contrib-jshint": "~0.10.0",
+    "chai": "~1.9.1"
   }
 }

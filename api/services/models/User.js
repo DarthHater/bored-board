@@ -5,7 +5,8 @@
  * @description :: Model for Posts, I think?
  */
 
-var bcrypt = require('bcrypt');
+var bcrypt = require('bcrypt'),
+	uniqueValidator = require('mongoose-unique-validator');
 var SALT_WORK_FACTOR = 10;
 
 module.exports = function(mongoose) {
@@ -14,8 +15,7 @@ module.exports = function(mongoose) {
 	 	username: {
 	 		type: String,
 	 		required: true,
-	 		unique: true,
-	 		index: true
+	 		unique: true
 	 	},
 	 	password: {
 	 		type: String,
@@ -66,6 +66,8 @@ module.exports = function(mongoose) {
 
 		return user;
 	});
+
+	schema.plugin(uniqueValidator);
 
  	try {
         mongoose.model('User', schema);
