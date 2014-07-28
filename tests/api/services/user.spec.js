@@ -58,21 +58,18 @@ describe('The User Model', function () {
             username: 'testuser'
         }, function (err) {
             if (err) console.log('User not removed?');
-            console.log('testuser removed');
         });
 
         User.findOneAndRemove({
             username: 'Test User 2'
         }, function (err) {
             if (err) console.log('Test User 2 not removed');
-            console.log('Test User 2 removed');
         });
 
         User.findOneAndRemove({
             username: 'testusername'
         }, function (err) {
             if (err) console.log('testusername not removed');
-            console.log('testusername removed');
         });
     });
 });
