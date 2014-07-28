@@ -4,6 +4,17 @@ var mongoose = require('mongoose'),
     assert = require('assert');
 
 describe('The User Model', function () {
+    before(function() {
+        User({
+            username: 'Test User',
+            password: 'testpassword',
+            emailaddress: 'testemailaddress@gmail.com'
+        }).save(function (err, user) {
+            if (err) console.log('Setup of user failed because: ' + err.message);
+            //console.log('Setup of : ' + user.username + ' was successful');
+        });
+    });
+
     describe('before the user is created', function () {
         it ('should hash the password', function (done) {
             User({
@@ -12,6 +23,42 @@ describe('The User Model', function () {
                 assert.notEqual(user.password, 'password');
                 done();
             });
+        });
+    });
+
+    describe('given a duplicate email address', function() {
+        it('should reject the user from being created', function (done) {
+            assert.fail(1, 0, 'Not yet implemented');
+            // User({
+            //     username: 'testusername',
+            //     password: 'testpassword',
+            //     emailaddress: 'testemailaddress@gmail.com'
+            // }).save(function (err, user) {
+
+            // });
+        });
+    });
+
+    describe('given a duplicate username', function () {
+        it('should reject the user from being created', function (done) {
+            assert.fail(1, 0, 'Not yet implemented');
+
+            // User({
+            //     username: 'Test User',
+            //     password: 'anothertest',
+            //     emailaddress: 'differentemailaddress@gmail.com'
+            // }).save(function (err, user) {
+
+            // });
+        });
+    });
+
+    after(function() {
+        User.findOneAndRemove({
+            username: 'Test User'
+        }, function (err) {
+            if (err) console.log('User not removed?');
+            console.log('User removed');
         });
     });
 });
