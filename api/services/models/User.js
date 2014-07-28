@@ -11,14 +11,36 @@ var SALT_WORK_FACTOR = 10;
 module.exports = function(mongoose) {
 
 	var schema = new mongoose.Schema({
-	 	username: String,
-	 	password: String,
-	 	emailaddress: String,
+	 	username: {
+	 		type: String,
+	 		required: true,
+	 		unique: true,
+	 		index: true
+	 	},
+	 	password: {
+	 		type: String,
+	 		required: true
+	 	},
+	 	emailaddress: { 
+	 		type: String, 
+	 		required: true,
+	 		unique: true,
+	 		index: true
+	 	},
 	 	firstName: String,
 	 	lastName: String,
-	 	threads: { type: Number, default: 0 },
-	 	posts: { type: Number, default: 0 },
-	 	createdAt: { type: Date, default: Date.now }
+	 	threads: { 
+	 		type: Number, 
+	 		default: 0 
+	 	},
+	 	posts: { 
+	 		type: Number, 
+	 		default: 0 
+	 	},
+	 	createdAt: { 
+	 		type: Date, 
+	 		default: Date.now 
+	 	}
 	});
 
 	schema.pre('save', function(next) {
