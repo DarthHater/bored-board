@@ -28,7 +28,7 @@
     "bcrypt": "~0.7.8",
     "passport-local": "~1.0.0",
     "q": "~1.0.1",
-    "bbcode": "~0.1.5",
+    "bbcode": "git+https://github.com/DarthHater/node-bbcode.git#master",
     "newrelic": "~1.8.1",
     "mongoose-unique-validator": "~0.3.0"
   },
