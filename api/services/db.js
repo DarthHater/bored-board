@@ -3,44 +3,25 @@
  */
 var mongoose = require('mongoose');
 var conf = require('../../config/local');
+var helper = require('./models/Helpers');
  
 
-if (conf.environment === 'development') {
-	mongoose.connect(conf.mongoDblocal.prefix + 
-		conf.mongoDblocal.server + '/' +
-		conf.mongoDblocal.database);
-}
-else {
-	var options = { 
-				server: { 
-					socketOptions: { 
-						keepAlive: 1, 
-						connectTimeoutMS: 30000 
-					} 
-				}, 
-                replset: { 
-                	socketOptions: { 
-                		keepAlive: 1, 
-                		connectTimeoutMS : 30000 
-                	} 
-                }
-        	};
+var options = { 
+			server: { 
+				socketOptions: { 
+					keepAlive: 1, 
+					connectTimeoutMS: 30000 
+				} 
+			}, 
+            replset: { 
+            	socketOptions: { 
+            		keepAlive: 1, 
+            		connectTimeoutMS : 30000 
+            	} 
+            }
+    	};
+mongoose.connect(helper.connectionString(conf.environment), options);
 
-	var connectionstring = 
-		conf.mongoDbprod.prefix + 
-		conf.mongoDbprod.username + ':' +
-		conf.mongoDbprod.password + '@' +
-		conf.mongoDbprod.host1 + ':' + 
-		conf.mongoDbprod.port + '/' + 
-		conf.mongoDbprod.database + ',' +
-		conf.mongoDbprod.prefix + 
-		conf.mongoDbprod.username + ':' +
-		conf.mongoDbprod.password + '@' +
-		conf.mongoDbprod.host2 + ':' + 
-		conf.mongoDbprod.port;
-
-	mongoose.connect(connectionstring, options);
-}
  
 /**
  * We check if the connection is ok
