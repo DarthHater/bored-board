@@ -2,11 +2,6 @@ var bbcode = require('bbcode');
 var conf = require('../../../config/local');
 
 module.exports = {
-	var sessionHost;
-	var sessionPort;
-	var sessionUser;
-	var sessionPassword;
-
 	toJSON: function(object) {
 		// bbcode post bodies
 		if(Object.keys(object).length > 0 && object[0].hasOwnProperty("body")) {
