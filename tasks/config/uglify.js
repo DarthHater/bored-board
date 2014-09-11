@@ -13,9 +13,7 @@ module.exports = function(grunt) {
 
 	grunt.config.set('uglify', {
 		options: {
-			mangle: {
-				except: ['Angular']
-			}
+			mangle: false
 		},
 		dist: {
 			src: ['.tmp/public/concat/production.js'],
