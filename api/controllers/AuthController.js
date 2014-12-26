@@ -61,12 +61,14 @@ module.exports = {
     passport.authenticate('local', function(err, user, info) {
       if ((err) || (!user)) { 
         res.json('Uh oh not logged in!', 401);
+        
         return;
       }
       req.logIn(user, function (err) {
         if (err) res.json('Sorry, cannot log you in!', 401);
 
         res.cookie('userid', user._id, { maxAge: 2592000000 });
+        
         return res.json('Logged in!', 200);
       });
     })(req, res);
