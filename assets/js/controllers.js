@@ -14,9 +14,17 @@ config(['$routeProvider',
         templateUrl: 'partials/newthread.html',
         controller: 'ThreadCreateCtrl'
       }).
+      when('/user/register', {
+        templateUrl: 'partials/register.html',
+        controller: 'AuthRegisterCtrl'
+      }).
       when('/user/:userId', {
         templateUrl: 'partials/userview.html',
         controller: 'UserViewCtrl'
+      }).
+      when('/login', {
+        templateUrl: 'partials/signin.html',
+        controller: 'AuthSignInCtrl'
       }).
       when('/user/me', {
         templateUrl: 'partials/userview.html',
@@ -125,4 +133,41 @@ boredBoardApp.controller('UserViewCtrl', function ($scope, socket, $routeParams)
 
     $scope.user = json.user;
   });
+});
+
+boredBoardApp.controller('AuthSignInCtrl', function ($scope, socket, $routeParams) {
+  $scope.signin = function(isValid) {
+    if(isValid) {
+      var data = {};
+      data.username = $scope.user.username;
+      data.password = $scope.user.password;
+      socket.post('/api/auth/signin/', data, function (data) {
+        var json = JSON.parse(data);
+
+        $scope.user = json.user;
+      });
+    }
+  };
+});
+
+boredBoardApp.controller('AuthRegisterCtrl', function ($scope, $window, $http, $routeParams) {
+  $scope.register = function(isValid) {
+    if(isValid) {
+      var data = {};
+
+      data.username = $scope.user.username;
+      data.password = $scope.user.password;
+      data.email = $scope.user.email;
+
+      $http.post('/api/auth/create/', data).
+      success(function(data) {
+        var json = JSON.parse(data);
+
+        $scope.user = json.user;
+      }).
+      error(function(data) {
+
+      });
+    }
+  };
 });

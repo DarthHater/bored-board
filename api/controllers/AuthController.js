@@ -31,7 +31,7 @@ module.exports = {
   create: function (req, res) {
     var username = req.body.username;
     var password = req.body.password;
-    var emailAddress = req.body.emailaddress;
+    var emailAddress = req.body.email;
 
     db.User(
         { username: username, 
@@ -60,13 +60,14 @@ module.exports = {
   process: function (req, res) {
     passport.authenticate('local', function(err, user, info) {
       if ((err) || (!user)) { 
-        res.redirect('/login');
+        res.json('Uh oh not logged in!', 401);
         return;
       }
       req.logIn(user, function (err) {
-        if (err) res.redirect('login');
+        if (err) res.json('Sorry, cannot log you in!', 401);
+
         res.cookie('userid', user._id, { maxAge: 2592000000 });
-        return res.redirect('/');
+        return res.json('Logged in!', 200);
       });
     })(req, res);
   }
