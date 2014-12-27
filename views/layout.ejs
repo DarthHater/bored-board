@@ -40,7 +40,7 @@
             <li><a href="#">search</a></li>
             <li><a href="#/user/me">profile</a></li>
             <li ng-if="!currentUser"><a href="#/login">sign in</a></li>
-            <li ng-if="currentUser"><a href="/logout">sign out</a></li>
+            <li ng-if="currentUser"><a ng-click="logout()">sign out</a></li>
           </ul>
         </div><!--/.nav-collapse -->
       </div>

@@ -22,7 +22,9 @@ module.exports = {
   logout: function (req, res) {
     req.logout();
     res.clearCookie('userid');
-    res.redirect('/');
+    //res.redirect('/');
+
+    return res.json('Logged out!', 200);
   },
 
   /**

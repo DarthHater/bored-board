@@ -15,6 +15,20 @@ boredBoardFactory.factory('AuthService', function ($http, Session) {
       });
   }
 
+  authService.logout = function () {
+    return $http.get('/api/auth/logout/').
+      then(function(res) {
+        Session.destroy();
+
+        return true;
+      },
+      function(error) {
+        console.log(error);
+
+        return error;
+      });
+  }
+
   authService.isAuthenticated = function () {
     return !!Session.userId;
   };
