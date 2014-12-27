@@ -1,4 +1,4 @@
-var boredBoardApp = angular.module('boredBoardApp', ['ngRoute', 'infinite-scroll', 'boredBoardFactory']).
+var boredBoardApp = angular.module('boredBoardApp', ['ngRoute', 'infinite-scroll', 'boredBoardFactory', 'boredBoredDirectives']).
 config(['$routeProvider',
   function($routeProvider) {
     $routeProvider.

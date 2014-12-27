@@ -36,6 +36,7 @@ var jsFilesToInject = [
   // All of the rest of your client-side js files
   // are injected here, order matters
   'js/controllers.js',
+  'js/directives.js',
   'js/services.js',
   'js/main.js'
 ];

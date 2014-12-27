@@ -3,32 +3,33 @@
         <div class="panel panel-default">
             <div class="panel-body">
                 <form novalidate ng-submit="register(userRegisterForm.$valid)" name="userRegisterForm">
-                    <div class="form-group">
+                    <div class="form-group" ng-class="{'has-error': userRegisterForm.username.$invalid, 'has-success': !userRegisterForm.username.$invalid}">
                         <label for="username">Username:</label>
                         <div class="input-group">
                             <span class="input-group-addon"><span class="glyphicon glyphicon-edit"></span></span>
-                            <input type="text" id="username" name="username" class="form-control" placeholder="Username" ng-model="user.username" />
+                            <input type="text" id="username" name="username" class="form-control" placeholder="Username" ng-model="user.username" required />
                         </div>
                     </div>
-                    <div class="form-group">
+                    <div class="form-group" ng-class="{'has-error': userRegisterForm.emailaddress.$invalid, 'has-success': !userRegisterForm.emailaddress.$invalid}">
                         <label for="emailaddress">Email Address:</label>
                         <div class="input-group">
                             <span class="input-group-addon"><span class="glyphicon glyphicon-edit"></span></span>
-                            <input type="text" id="emailaddress" name="emailaddress" class="form-control" placeholder="email@website.com" ng-model="user.email" />
+                            <input type="email" id="emailaddress" name="emailaddress" class="form-control" placeholder="email@website.com" ng-model="user.email" required/>
                         </div>
                     </div>
-                    <div class="form-group">
+                    <div class="form-group" ng-class="{'has-error': userRegisterForm.password.$invalid, 'has-success': !userRegisterForm.password.$invalid}">
                         <label for="password">Password:</label>
                         <div class="input-group">
                             <span class="input-group-addon"><span class="glyphicon glyphicon-edit"></span></span>
-                            <input type="password" id="password" name="password" class="form-control" placeholder="Password" ng-model="user.password" />
+                            <input type="password" id="password" name="password" class="form-control" placeholder="Password" ng-model="user.password" password-strength="user.password" required/>
                         </div>
+                        <span class="help-inline" data-ng-show='userRegisterForm.password.$valid && userRegisterForm.password.$dirty' data-ng-class="strength">Password strength: {{strength}}</span>
                     </div>
-                    <div class="form-group">
+                    <div class="form-group" ng-class="{'has-error': userRegisterForm.passwordmatch.$invalid, 'has-success': !userRegisterForm.passwordmatch.$invalid}">
                         <label for="passwordmatch">Confirm Password:</label>
                         <div class="input-group">
                             <span class="input-group-addon"><span class="glyphicon glyphicon-edit"></span></span>
-                            <input type="password" id="passwordmatch" name="passwordmatch" class="form-control" placeholder="Password" ng-model="user.passwordmatch" />
+                            <input type="password" id="passwordmatch" name="passwordmatch" class="form-control" placeholder="Password" ng-model="user.passwordmatch" required/>
                         </div>
                     </div>
                     <button type="submit" class="btn btn-primary" ng-disabled="userRegisterForm.$invalid" value="register">Register</button> 
