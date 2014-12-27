@@ -22,7 +22,7 @@ module.exports = {
   logout: function (req, res) {
     req.logout();
     res.clearCookie('userid');
-    res.redirect('/login');
+    res.redirect('/');
   },
 
   /**
@@ -60,12 +60,12 @@ module.exports = {
   process: function (req, res) {
     passport.authenticate('local', function(err, user, info) {
       if ((err) || (!user)) { 
-        res.json('Uh oh not logged in!', 401);
+        res.json('Uh oh not logged in!', 403);
         
         return;
       }
       req.logIn(user, function (err) {
-        if (err) res.json('Sorry, cannot log you in!', 401);
+        if (err) res.json('Sorry, cannot log you in!', 403);
 
         res.cookie('userid', user._id, { maxAge: 2592000000 });
         
