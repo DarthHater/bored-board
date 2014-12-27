@@ -69,7 +69,7 @@ module.exports = {
 
         res.cookie('userid', user._id, { maxAge: 2592000000 });
         
-        return res.json('Logged in!', 200);
+        return res.json({ user: user, message: 'Logged in!'}, 200);
       });
     })(req, res);
   }

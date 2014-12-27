@@ -135,28 +135,23 @@ boredBoardApp.controller('UserViewCtrl', function ($scope, socket, $routeParams)
   });
 });
 
-boredBoardApp.controller('AuthSignInCtrl', function ($scope, $location, $http, $routeParams) {
+boredBoardApp.controller('AuthSignInCtrl', function ($scope, $location, $http, $routeParams, AuthService) {
   $scope.signin = function(isValid) {
     if(isValid) {
-      var data = {};
+      var credentials = {};
 
-      data.username = $scope.user.username;
-      data.password = $scope.user.password;
+      credentials.username = $scope.user.username;
+      credentials.password = $scope.user.password;
 
-      $http.post('/api/auth/process/', data).
-      success(function(data) {
-        var json = JSON.parse(data);
+      AuthService.login(credentials).
+        then(function (res) {
+          $scope.user = res;
 
-        $scope.user = json.user;
-
-        $location.path( "#/thread/list" );
-      }).
-      error(function(data) {
-        console.log(data);
-
-        $scope.user.password = null;
-        $scope.userSignInForm.$setPristine();
-      });
+          $location.path( "#/thread/list" );
+        }, function () {
+          $scope.user.password = null;
+          $scope.userSignInForm.$setPristine();
+        });
     }
   };
 });

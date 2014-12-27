@@ -1,5 +1,41 @@
 var boredBoardFactory = angular.module('boredBoardFactory', ['ngRoute']);
 
+boredBoardFactory.factory('AuthService', function ($http) {
+  var authService = {};
+
+  authService.login = function(credentials) {
+    return $http.post('/api/auth/process/', credentials).
+      then(function(res) {
+        Session.create('', res.user._id);
+        return res;
+      },
+      function(error) {
+        console.log(error);
+        return error; 
+      });
+  }
+
+  authService.isAuthenticated = function () {
+    return !!Session.userId;
+  };
+
+  return authService;
+});
+
+boredBoardFactory.service('Session', function () {
+  this.create = function (sessionId, userId) {
+    this.id = sessionId;
+    this.userId = userId;
+  };
+
+  this.destroy = function () {
+    this.id = null;
+    this.userId = null;
+  };
+
+  return this;
+});
+
 boredBoardFactory.factory('Scroll', function (socket) {
   
   var Scroll = function(url, initial, type) {
