@@ -7,7 +7,7 @@
                         <label for="username">Username:</label>
                         <div class="input-group">
                             <span class="input-group-addon"><span class="glyphicon glyphicon-edit"></span></span>
-                            <input type="text" id="username" name="username" class="form-control" placeholder="Username" ng-model="user.username" required />
+                            <input type="text" id="username" name="username" class="form-control" placeholder="Username" ng-model="user.username" ng-minlength='4' required />
                         </div>
                     </div>
                     <div class="form-group" ng-class="{'has-error': userRegisterForm.emailaddress.$invalid, 'has-success': !userRegisterForm.emailaddress.$invalid}">
@@ -25,12 +25,13 @@
                         </div>
                         <span class="help-inline" data-ng-show='userRegisterForm.password.$valid && userRegisterForm.password.$dirty' data-ng-class="strength">Password strength: {{strength}}</span>
                     </div>
-                    <div class="form-group" ng-class="{'has-error': userRegisterForm.passwordmatch.$invalid, 'has-success': !userRegisterForm.passwordmatch.$invalid}">
-                        <label for="passwordmatch">Confirm Password:</label>
+                    <div class="form-group" ng-class="{'has-error': userRegisterForm.confirmPassword.$invalid, 'has-success': !userRegisterForm.confirmPassword.$invalid}">
+                        <label for="confirmPassword">Confirm Password:</label>
                         <div class="input-group">
                             <span class="input-group-addon"><span class="glyphicon glyphicon-edit"></span></span>
-                            <input type="password" id="passwordmatch" name="passwordmatch" class="form-control" placeholder="Password" ng-model="user.passwordmatch" required/>
+                            <input type="password" id="confirmPassword" name="confirmPassword" class="form-control" placeholder="Password" ng-model="user.confirmPassword" required compare-to="user.password"/>
                         </div>
+                        <span class="help-inline" data-ng-show='userRegisterForm.confirmPassword.$invalid && userRegisterForm.confirmPassword.$dirty' data-ng-class="strength">Password doesn't match</span>
                     </div>
                     <button type="submit" class="btn btn-primary" ng-disabled="userRegisterForm.$invalid" value="register">Register</button> 
                     <div class="pull-right">
