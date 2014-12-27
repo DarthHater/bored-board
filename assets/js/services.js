@@ -1,12 +1,12 @@
 var boredBoardFactory = angular.module('boredBoardFactory', ['ngRoute']);
 
-boredBoardFactory.factory('AuthService', function ($http) {
+boredBoardFactory.factory('AuthService', function ($http, Session) {
   var authService = {};
 
   authService.login = function(credentials) {
     return $http.post('/api/auth/process/', credentials).
       then(function(res) {
-        Session.create('', res.user._id);
+        Session.create('', res.data.user._id);
         return res;
       },
       function(error) {
