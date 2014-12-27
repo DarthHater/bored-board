@@ -35,6 +35,15 @@ config(['$routeProvider',
       });
   }]);
 
+boredBoardApp.controller('ApplicationController', function ($scope, AuthService) {
+  $scope.currentUser = null;
+  $scope.isAuthenticated = AuthService.isAuthenticated;
+
+  $scope.setCurrentUser = function (user) {
+    $scope.currentUser = user;
+  };
+})
+
 boredBoardApp.controller('ThreadListCtrl', function ($scope, socket, Scroll) {
   
   var scroll = new Scroll('/api/board/listthreads', 15, 'threads');
@@ -136,6 +145,10 @@ boredBoardApp.controller('UserViewCtrl', function ($scope, socket, $routeParams)
 });
 
 boredBoardApp.controller('AuthSignInCtrl', function ($scope, $location, $http, $routeParams, AuthService) {
+  if(AuthService.isAuthenticated) { 
+    //$location.path( "#/thread/list"); 
+  }
+
   $scope.signin = function(isValid) {
     if(isValid) {
       var credentials = {};
@@ -145,7 +158,7 @@ boredBoardApp.controller('AuthSignInCtrl', function ($scope, $location, $http, $
 
       AuthService.login(credentials).
         then(function (res) {
-          $scope.user = res;
+          $scope.setCurrentUser(res);
 
           $location.path( "#/thread/list" );
         }, function () {

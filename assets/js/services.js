@@ -7,7 +7,7 @@ boredBoardFactory.factory('AuthService', function ($http, Session) {
     return $http.post('/api/auth/process/', credentials).
       then(function(res) {
         Session.create('', res.data.user._id);
-        return res;
+        return res.data.user;
       },
       function(error) {
         console.log(error);
