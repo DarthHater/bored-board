@@ -3,8 +3,8 @@ var boredBoardFactory = angular.module('boredBoardFactory', ['ngRoute', 'ngCooki
 boredBoardFactory.factory('AuthService', function ($http, Session) {
   var authService = {};
 
-  authService.login = function(credentials) {
-    return $http.post('/api/auth/process/', credentials).
+  authService.login = function(path, credentials) {
+    return $http.post(path, credentials).
       success(function(res) {
         Session.create('', res.user._id);
         return res.user;
@@ -14,16 +14,14 @@ boredBoardFactory.factory('AuthService', function ($http, Session) {
       });
   }
 
-  authService.logout = function () {
-    return $http.get('/api/auth/logout/').
-      then(function(res) {
+  authService.logout = function (path) {
+    return $http.get(path).
+      success(function(res) {
         Session.destroy();
 
         return true;
-      },
-      function(error) {
-        console.log(error);
-
+      }).
+      error(function(error) {
         return error;
       });
   }

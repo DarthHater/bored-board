@@ -40,11 +40,12 @@ config(['$routeProvider',
     create_thread: '/api/board/createthread',
     reply_thread: '/api/board/replythread',
     create_user: '/api/auth/create',
+    view_user: '/api/user/view/',
     login: '/api/auth/login',
     logout: '/api/auth/logout'
   });
 
-boredBoardApp.controller('ApplicationController', function ($scope, $location, AuthService) {
+boredBoardApp.controller('ApplicationController', function ($scope, $location, APP_ROUTES, AuthService) {
   $scope.currentUser = null;
   $scope.isAuthenticated = AuthService.isAuthenticated;
 
@@ -53,7 +54,7 @@ boredBoardApp.controller('ApplicationController', function ($scope, $location, A
   };
 
   $scope.logout = function () {
-    AuthService.logout().
+    AuthService.logout(APP_ROUTES.logout).
     then(function (){
       $scope.currentUser = null;
 
@@ -155,17 +156,17 @@ boredBoardApp.controller('ReplyThreadCtrl', function ($scope, socket, APP_ROUTES
     };
 });
 
-boredBoardApp.controller('UserViewCtrl', function ($scope, socket, $routeParams) {
+boredBoardApp.controller('UserViewCtrl', function ($scope, socket, APP_ROUTES, $routeParams) {
   var id = $routeParams.userId;
 
-  socket.get('/api/user/view/' + id, function (data) {
+  socket.get(APP_ROUTES.view_user + id, function (data) {
     var json = JSON.parse(data);
 
     $scope.user = json.user;
   });
 });
 
-boredBoardApp.controller('AuthSignInCtrl', function ($scope, $location, $http, $routeParams, AuthService) {
+boredBoardApp.controller('AuthSignInCtrl', function ($scope, $location, $http, $routeParams, APP_ROUTES, AuthService) {
   $scope.credentials = {
     username: '',
     password: ''
@@ -173,7 +174,7 @@ boredBoardApp.controller('AuthSignInCtrl', function ($scope, $location, $http, $
 
   $scope.signin = function(isValid) {
     if(isValid) {
-      AuthService.login($scope.credentials).
+      AuthService.login(APP_ROUTES.login, $scope.credentials).
         then(function (res) {
           $scope.setCurrentUser(res);
 
