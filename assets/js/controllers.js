@@ -35,7 +35,7 @@ config(['$routeProvider',
       });
   }]);
 
-boredBoardApp.controller('ApplicationController', function ($scope, AuthService) {
+boredBoardApp.controller('ApplicationController', function ($scope, $location, AuthService) {
   $scope.currentUser = null;
   $scope.isAuthenticated = AuthService.isAuthenticated;
 
@@ -47,6 +47,8 @@ boredBoardApp.controller('ApplicationController', function ($scope, AuthService)
     AuthService.logout().
     then(function (){
       $scope.currentUser = null;
+
+      $location.path("#/login");
     },
     function(error) {
       console.log(error);
@@ -155,14 +157,14 @@ boredBoardApp.controller('UserViewCtrl', function ($scope, socket, $routeParams)
 });
 
 boredBoardApp.controller('AuthSignInCtrl', function ($scope, $location, $http, $routeParams, AuthService) {
+  $scope.credentials = {
+    username: '',
+    password: ''
+  };
+
   $scope.signin = function(isValid) {
     if(isValid) {
-      var credentials = {};
-
-      credentials.username = $scope.user.username;
-      credentials.password = $scope.user.password;
-
-      AuthService.login(credentials).
+      AuthService.login($scope.credentials).
         then(function (res) {
           $scope.setCurrentUser(res);
 

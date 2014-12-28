@@ -7,7 +7,7 @@
             <label for="username">Username</label>
             <div class="input-group">
               <span class="input-group-addon"><span class="glyphicon glyphicon-user"></span></span>
-              <input type="text" id="username" name="username" class="form-control" placeholder="Username" required ng-model="user.username" />
+              <input type="text" id="username" name="username" class="form-control" placeholder="Username" required ng-model="credentials.username" />
             </div>
             <span class="error" ng-show="userSignInForm.username.$error.required && !userSignInForm.username.$pristine ">Username required!</span><br>
           </div>
@@ -15,7 +15,7 @@
             <label for="password">Password</label>
             <div class="input-group">
               <span class="input-group-addon"><span class="glyphicon glyphicon-lock"></span></span>
-              <input type="password" id="password" name="password" class="form-control" placeholder="Password" required ng-model="user.password"/>
+              <input type="password" id="password" name="password" class="form-control" placeholder="Password" required ng-model="credentials.password"/>
             </div>
             <span class="error" ng-show="userSignInForm.password.$error.required && !userSignInForm.password.$pristine ">Password required!</span><br>
           </div>
