@@ -28,6 +28,7 @@ var jsFilesToInject = [
   'js/dependencies/jquery/jquery.min.js',
   'js/dependencies/angular/angular.min.js',
   'js/dependencies/angular-route/angular-route.min.js',
+  'js/dependencies/angular-cookies/angular-cookies.min.js',
   'js/dependencies/ngInfiniteScroll/ng-infinite-scroll.min.js',
   'js/dependencies/sails.io.js',
   'js/dependencies/bootstrap/bootstrap.min.js',
