@@ -1,16 +1,15 @@
-var boredBoardFactory = angular.module('boredBoardFactory', ['ngRoute']);
+var boredBoardFactory = angular.module('boredBoardFactory', ['ngRoute', 'ngCookies']);
 
 boredBoardFactory.factory('AuthService', function ($http, Session) {
   var authService = {};
 
   authService.login = function(credentials) {
     return $http.post('/api/auth/process/', credentials).
-      then(function(res) {
-        Session.create('', res.data.user._id);
-        return res.data.user;
-      },
-      function(error) {
-        console.log(error);
+      success(function(res) {
+        Session.create('', res.user._id);
+        return res.user;
+      }).
+      error(function(error) {
         return error; 
       });
   }
@@ -36,13 +35,17 @@ boredBoardFactory.factory('AuthService', function ($http, Session) {
   return authService;
 });
 
-boredBoardFactory.service('Session', function () {
+boredBoardFactory.service('Session', function ($cookieStore) {
   this.create = function (sessionId, userId) {
+    $cookieStore.put('userid', userId);
+
     this.id = sessionId;
     this.userId = userId;
   };
 
   this.destroy = function () {
+    $cookieStore.remove('userid');
+
     this.id = null;
     this.userId = null;
   };

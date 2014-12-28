@@ -21,8 +21,7 @@ module.exports = {
    */
   logout: function (req, res) {
     req.logout();
-    res.clearCookie('userid');
-    //res.redirect('/');
+    //res.clearCookie('userid');
 
     return res.json('Logged out!', 200);
   },
@@ -69,7 +68,7 @@ module.exports = {
       req.logIn(user, function (err) {
         if (err) res.json('Sorry, cannot log you in!', 403);
 
-        res.cookie('userid', user._id, { maxAge: 2592000000 });
+        //res.cookie('userid', user._id, { maxAge: 2592000000 });
         
         return res.json({ user: user, message: 'Logged in!'}, 200);
       });
