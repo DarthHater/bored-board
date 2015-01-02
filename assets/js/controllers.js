@@ -63,8 +63,8 @@ boredBoardApp.controller('ApplicationController', function ($scope, $location, A
     function(error) {
       console.log(error);
     });
-  }
-})
+  };
+});
 
 boredBoardApp.controller('ThreadListCtrl', function ($scope, socket, APP_ROUTES, Scroll) {
   
@@ -97,6 +97,7 @@ boredBoardApp.controller('ThreadCreateCtrl', function ($scope, $location, APP_RO
       data.body = $scope.message.body;
       data.title = $scope.message.title;
 
+      // TODO: move into it's own service
       socket.post(APP_ROUTES.create_thread, data, function(data) {
         $location.path( "#/thread/list" );
       });
@@ -148,6 +149,7 @@ boredBoardApp.controller('ReplyThreadCtrl', function ($scope, socket, APP_ROUTES
         data.body = $scope.message.body;
         data.thread = $scope.posts[0].thread;
 
+        // TODO: move into it's own service
         socket.post(APP_ROUTES.reply_thread, data, function (data) {
           $scope.message.body = null;
           $scope.replyPostForm.$setPristine();
@@ -159,6 +161,7 @@ boredBoardApp.controller('ReplyThreadCtrl', function ($scope, socket, APP_ROUTES
 boredBoardApp.controller('UserViewCtrl', function ($scope, socket, APP_ROUTES, $routeParams) {
   var id = $routeParams.userId;
 
+  // TODO: move into it's own service
   socket.get(APP_ROUTES.view_user + id, function (data) {
     var json = JSON.parse(data);
 
@@ -196,6 +199,7 @@ boredBoardApp.controller('AuthRegisterCtrl', function ($scope, $location, $http,
       data.password = $scope.user.password;
       data.email = $scope.user.email;
 
+      // TODO: move into AuthService
       $http.post(APP_ROUTES.create_user, data).
       success(function(data) {
         var json = JSON.parse(data);

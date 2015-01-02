@@ -12,7 +12,7 @@ boredBoardFactory.factory('AuthService', function ($http, Session) {
       error(function(error) {
         return error; 
       });
-  }
+  };
 
   authService.logout = function (path) {
     return $http.get(path).
@@ -24,7 +24,7 @@ boredBoardFactory.factory('AuthService', function ($http, Session) {
       error(function(error) {
         return error;
       });
-  }
+  };
 
   authService.isAuthenticated = function () {
     return !!Session.userId;
@@ -84,7 +84,7 @@ boredBoardFactory.factory('Scroll', function (socket) {
   };
 
   Scroll.prototype.nextPage = function (callback) {
-    if (this.busy || this.initialize == false) return;
+    if (this.busy || this.initialize === false) return;
     this.busy = true;
 
     socket.get(this.path + '?after=' + this.after, function (data) {
