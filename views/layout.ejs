@@ -9,7 +9,7 @@
     <!--STYLES END-->
     <base href="/">
   </head>
-  <body lang="en">
+  <body lang="en" ng-controller="ApplicationController">
     <!--TEMPLATES-->
     
     <!--TEMPLATES END-->
@@ -32,18 +32,15 @@
             <li class="dropdown">
               <a class="dropdown-toggle" data-toggle="dropdown">threads <b class="caret"></b></a>
               <ul class="dropdown-menu">
-                <li><a href="/">view all</a></li>
+                <li><a href="#/thread/list">view all</a></li>
                 <li><a href="#/thread/new">new thread</a></li>
               </ul>
             </li>
             <li><a href="#">messages</a></li>
             <li><a href="#">search</a></li>
             <li><a href="#/user/me">profile</a></li>
-            <% if (!req.isAuthenticated()) { %>
-              <li><a href="/login">sign in</a></li>
-            <% } else { %>
-              <li><a href="/logout">sign out</a></li>
-            <% } %>
+            <li ng-if="!currentUser"><a href="#/login">sign in</a></li>
+            <li ng-if="currentUser"><a ng-click="logout()">sign out</a></li>
           </ul>
         </div><!--/.nav-collapse -->
       </div>
@@ -69,6 +66,7 @@
     <script src="/js/dependencies/sails.io.js"></script>
     <script src="/js/dependencies/bootstrap/bootstrap.min.js"></script>
     <script src="/js/controllers.js"></script>
+    <script src="/js/directives.js"></script>
     <script src="/js/services.js"></script>
     <script src="/js/main.js"></script>
     <!--SCRIPTS END-->

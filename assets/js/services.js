@@ -1,4 +1,55 @@
-var boredBoardFactory = angular.module('boredBoardFactory', ['ngRoute']);
+var boredBoardFactory = angular.module('boredBoardFactory', ['ngRoute', 'ngCookies']);
+
+boredBoardFactory.factory('AuthService', function ($http, Session) {
+  var authService = {};
+
+  authService.login = function(path, credentials) {
+    return $http.post(path, credentials).
+      success(function(res) {
+        Session.create('', res.user._id);
+        return res.user;
+      }).
+      error(function(error) {
+        return error; 
+      });
+  };
+
+  authService.logout = function (path) {
+    return $http.get(path).
+      success(function(res) {
+        Session.destroy();
+
+        return true;
+      }).
+      error(function(error) {
+        return error;
+      });
+  };
+
+  authService.isAuthenticated = function () {
+    return !!Session.userId;
+  };
+
+  return authService;
+});
+
+boredBoardFactory.service('Session', function ($cookieStore) {
+  this.create = function (sessionId, userId) {
+    $cookieStore.put('userid', userId);
+
+    this.id = sessionId;
+    this.userId = userId;
+  };
+
+  this.destroy = function () {
+    $cookieStore.remove('userid');
+
+    this.id = null;
+    this.userId = null;
+  };
+
+  return this;
+});
 
 boredBoardFactory.factory('Scroll', function (socket) {
   
@@ -33,7 +84,7 @@ boredBoardFactory.factory('Scroll', function (socket) {
   };
 
   Scroll.prototype.nextPage = function (callback) {
-    if (this.busy || this.initialize == false) return;
+    if (this.busy || this.initialize === false) return;
     this.busy = true;
 
     socket.get(this.path + '?after=' + this.after, function (data) {

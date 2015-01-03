@@ -1,4 +1,4 @@
-var boredBoardApp = angular.module('boredBoardApp', ['ngRoute', 'infinite-scroll', 'boredBoardFactory']).
+var boredBoardApp = angular.module('boredBoardApp', ['ngRoute', 'infinite-scroll', 'boredBoardFactory', 'boredBoredDirectives']).
 config(['$routeProvider',
   function($routeProvider) {
     $routeProvider.
@@ -14,9 +14,17 @@ config(['$routeProvider',
         templateUrl: 'partials/newthread.html',
         controller: 'ThreadCreateCtrl'
       }).
+      when('/register', {
+        templateUrl: 'partials/register.html',
+        controller: 'AuthRegisterCtrl'
+      }).
       when('/user/:userId', {
         templateUrl: 'partials/userview.html',
         controller: 'UserViewCtrl'
+      }).
+      when('/login', {
+        templateUrl: 'partials/signin.html',
+        controller: 'AuthSignInCtrl'
       }).
       when('/user/me', {
         templateUrl: 'partials/userview.html',
@@ -25,11 +33,42 @@ config(['$routeProvider',
       otherwise({
         redirectTo: '/thread/list'
       });
-  }]);
+  }]).
+  constant('APP_ROUTES', {
+    thread_list: '/api/board/listthreads',
+    view_thread: '/api/board/viewthread/',
+    create_thread: '/api/board/createthread',
+    reply_thread: '/api/board/replythread',
+    create_user: '/api/auth/create',
+    view_user: '/api/user/view/',
+    login: '/api/auth/process',
+    logout: '/api/auth/logout'
+  });
 
-boredBoardApp.controller('ThreadListCtrl', function ($scope, socket, Scroll) {
+boredBoardApp.controller('ApplicationController', function ($scope, $location, APP_ROUTES, AuthService) {
+  $scope.currentUser = null;
+  $scope.isAuthenticated = AuthService.isAuthenticated;
+
+  $scope.setCurrentUser = function (user) {
+    $scope.currentUser = user;
+  };
+
+  $scope.logout = function () {
+    AuthService.logout(APP_ROUTES.logout).
+    then(function (){
+      $scope.currentUser = null;
+
+      $location.path("#/login");
+    },
+    function(error) {
+      console.log(error);
+    });
+  };
+});
+
+boredBoardApp.controller('ThreadListCtrl', function ($scope, socket, APP_ROUTES, Scroll) {
   
-  var scroll = new Scroll('/api/board/listthreads', 15, 'threads');
+  var scroll = new Scroll(APP_ROUTES.thread_list, 15, 'threads');
 
   scroll.init(function (data) {
     $scope.threads = data.threads;
@@ -51,24 +90,25 @@ boredBoardApp.controller('ThreadListCtrl', function ($scope, socket, Scroll) {
   });
 });
 
-boredBoardApp.controller('ThreadCreateCtrl', function ($scope, $location, socket) {
+boredBoardApp.controller('ThreadCreateCtrl', function ($scope, $location, APP_ROUTES, socket) {
   $scope.post = function (isValid) {
     if (isValid) {
       var data = {};
       data.body = $scope.message.body;
       data.title = $scope.message.title;
 
-      socket.post('/api/board/createthread', data, function(data) {
+      // TODO: move into it's own service
+      socket.post(APP_ROUTES.create_thread, data, function(data) {
         $location.path( "#/thread/list" );
       });
     }
   };
 });
 
-boredBoardApp.controller('ThreadViewCtrl', function ($scope, socket, $sce, $routeParams, Scroll) {
+boredBoardApp.controller('ThreadViewCtrl', function ($scope, socket, $sce, $routeParams, APP_ROUTES, Scroll) {
   var id = $routeParams.threadId;
 
-  var scroll = new Scroll('/api/board/viewthread/' + id, 15, 'posts');
+  var scroll = new Scroll(APP_ROUTES.view_thread + id, 15, 'posts');
 
   scroll.init(function (data) {
     $scope.posts = data.posts;
@@ -102,14 +142,15 @@ boredBoardApp.controller('ThreadViewCtrl', function ($scope, socket, $sce, $rout
   };
 });
 
-boredBoardApp.controller('ReplyThreadCtrl', function ($scope, socket, $routeParams) {
+boredBoardApp.controller('ReplyThreadCtrl', function ($scope, socket, APP_ROUTES, $routeParams) {
     $scope.post = function (isValid) {
       if(isValid) {
         var data = {};
         data.body = $scope.message.body;
         data.thread = $scope.posts[0].thread;
 
-        socket.post('/api/board/replythread', data, function (data) {
+        // TODO: move into it's own service
+        socket.post(APP_ROUTES.reply_thread, data, function (data) {
           $scope.message.body = null;
           $scope.replyPostForm.$setPristine();
         });
@@ -117,12 +158,59 @@ boredBoardApp.controller('ReplyThreadCtrl', function ($scope, socket, $routePara
     };
 });
 
-boredBoardApp.controller('UserViewCtrl', function ($scope, socket, $routeParams) {
+boredBoardApp.controller('UserViewCtrl', function ($scope, socket, APP_ROUTES, $routeParams) {
   var id = $routeParams.userId;
 
-  socket.get('/api/user/view/' + id, function (data) {
+  // TODO: move into it's own service
+  socket.get(APP_ROUTES.view_user + id, function (data) {
     var json = JSON.parse(data);
 
     $scope.user = json.user;
   });
+});
+
+boredBoardApp.controller('AuthSignInCtrl', function ($scope, $location, $http, $routeParams, APP_ROUTES, AuthService) {
+  $scope.credentials = {
+    username: '',
+    password: ''
+  };
+
+  $scope.signin = function(isValid) {
+    if(isValid) {
+      AuthService.login(APP_ROUTES.login, $scope.credentials).
+        then(function (res) {
+          $scope.setCurrentUser(res);
+
+          $location.path( "#/thread/list" );
+        }, function (error) {
+          $scope.credentials.password = null;
+          $scope.userSignInForm.$setPristine();
+        });
+    }
+  };
+});
+
+boredBoardApp.controller('AuthRegisterCtrl', function ($scope, $location, $http, APP_ROUTES, $routeParams) {
+  $scope.register = function(isValid) {
+    if(isValid) {
+      var data = {};
+
+      data.username = $scope.user.username;
+      data.password = $scope.user.password;
+      data.email = $scope.user.email;
+
+      // TODO: move into AuthService
+      $http.post(APP_ROUTES.create_user, data).
+      success(function(data) {
+        var json = JSON.parse(data);
+
+        $scope.user = json.user;
+
+        $location.path( "#/thread/list" );
+      }).
+      error(function(data) {
+
+      });
+    }
+  };
 });

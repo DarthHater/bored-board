@@ -1,0 +1,44 @@
+<div class="row register-form" ng-controller="AuthRegisterCtrl">
+    <div class="col-sm-6 col-sm-offset-3">
+        <div class="panel panel-default">
+            <div class="panel-body">
+                <form novalidate ng-submit="register(userRegisterForm.$valid)" name="userRegisterForm">
+                    <div class="form-group" ng-class="{'has-error': userRegisterForm.username.$invalid, 'has-success': !userRegisterForm.username.$invalid}">
+                        <label for="username">Enter A Username</label>
+                        <div class="input-group">
+                            <span class="input-group-addon"><span class="glyphicon glyphicon-edit"></span></span>
+                            <input type="text" id="username" name="username" class="form-control" placeholder="Username" ng-model="user.username" ng-minlength='4' required />
+                        </div>
+                    </div>
+                    <div class="form-group" ng-class="{'has-error': userRegisterForm.emailaddress.$invalid, 'has-success': !userRegisterForm.emailaddress.$invalid}">
+                        <label for="emailaddress">Provide Your Email Address</label>
+                        <div class="input-group">
+                            <span class="input-group-addon"><span class="glyphicon glyphicon-edit"></span></span>
+                            <input type="email" id="emailaddress" name="emailaddress" class="form-control" placeholder="email@website.com" ng-model="user.email" required/>
+                        </div>
+                    </div>
+                    <div class="form-group" ng-class="{'has-error': userRegisterForm.password.$invalid, 'has-success': !userRegisterForm.password.$invalid}">
+                        <label for="password">Create A Password</label>
+                        <div class="input-group">
+                            <span class="input-group-addon"><span class="glyphicon glyphicon-edit"></span></span>
+                            <input type="password" id="password" name="password" class="form-control" placeholder="Password" ng-model="user.password" password-strength="user.password" required/>
+                        </div>
+                        <span class="help-inline" data-ng-show='userRegisterForm.password.$valid && userRegisterForm.password.$dirty' data-ng-class="strength">Your password strength: {{strength}}</span>
+                    </div>
+                    <div class="form-group" ng-class="{'has-error': userRegisterForm.confirmPassword.$invalid, 'has-success': !userRegisterForm.confirmPassword.$invalid}">
+                        <label for="confirmPassword">Enter Your Password Again</label>
+                        <div class="input-group">
+                            <span class="input-group-addon"><span class="glyphicon glyphicon-edit"></span></span>
+                            <input type="password" id="confirmPassword" name="confirmPassword" class="form-control" placeholder="Password" ng-model="user.confirmPassword" required compare-to="user.password"/>
+                        </div>
+                        <span class="help-inline" ng-class="{'has-error': userRegisterForm.confirmPassword.$invalid, 'has-success': !userRegisterForm.confirmPassword.$invalid}" data-ng-show='userRegisterForm.confirmPassword.$invalid && userRegisterForm.confirmPassword.$dirty' data-ng-class="strength">Password doesn't match</span>
+                    </div>
+                    <button type="submit" class="btn btn-primary" ng-disabled="userRegisterForm.$invalid" value="register">Register</button> 
+                    <div class="pull-right">
+                        Already a user? <a href="#/login">Click here to sign-in!</a>
+                    </div>
+                </form>
+            </div><!--/.panel-body-->
+        </div><!--/.panel-->
+    </div><!--.col-sm-6-->
+</div><!--.register-form-->

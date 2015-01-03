@@ -9,9 +9,9 @@
  */
 
 module.exports = function(req, res, next) {
-  if (req.isAuthenticated()){
-    return next();
+  if (!req.isAuthenticated()) {
+    return res.send(401, { message: 'Not Authorized' });
   } else {
-    return res.send(403, { message: 'Not Authorized' });
+    return next();
   }
 };

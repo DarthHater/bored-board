@@ -9,20 +9,12 @@ var passport = require("passport"),
 
 module.exports = {
   /**
-   * `AuthController.login()`
-   */
-  login: function (req, res) {
-    return res.view('auth/login');
-  },
-
-
-  /**
    * `AuthController.logout()`
    */
   logout: function (req, res) {
     req.logout();
-    res.clearCookie('userid');
-    res.redirect('/login');
+
+    return res.json('Logged out!', 200);
   },
 
   /**
@@ -31,7 +23,7 @@ module.exports = {
   create: function (req, res) {
     var username = req.body.username;
     var password = req.body.password;
-    var emailAddress = req.body.emailaddress;
+    var emailAddress = req.body.email;
 
     db.User(
         { username: username, 
@@ -47,26 +39,19 @@ module.exports = {
   },
 
   /**
-   * `AuthController.register()`
-   */
-  register: function(req, res) {
-    return res.view('auth/create');
-  },
-
-
-  /**
    * `AuthController.process()`
    */
   process: function (req, res) {
     passport.authenticate('local', function(err, user, info) {
       if ((err) || (!user)) { 
-        res.redirect('/login');
+        res.json('Uh oh not logged in!', 403);
+        
         return;
       }
       req.logIn(user, function (err) {
-        if (err) res.redirect('login');
-        res.cookie('userid', user._id, { maxAge: 2592000000 });
-        return res.redirect('/');
+        if (err) res.json('Sorry, cannot log you in!', 403);
+        
+        return res.json({ user: user, message: 'Logged in!'}, 200);
       });
     })(req, res);
   }
