@@ -14,7 +14,7 @@ config(['$routeProvider',
         templateUrl: 'partials/newthread.html',
         controller: 'ThreadCreateCtrl'
       }).
-      when('/user/register', {
+      when('/register', {
         templateUrl: 'partials/register.html',
         controller: 'AuthRegisterCtrl'
       }).
@@ -41,7 +41,7 @@ config(['$routeProvider',
     reply_thread: '/api/board/replythread',
     create_user: '/api/auth/create',
     view_user: '/api/user/view/',
-    login: '/api/auth/login',
+    login: '/api/auth/process',
     logout: '/api/auth/logout'
   });
 
