@@ -9,19 +9,10 @@ var passport = require("passport"),
 
 module.exports = {
   /**
-   * `AuthController.login()`
-   */
-  login: function (req, res) {
-    return res.view('auth/login');
-  },
-
-
-  /**
    * `AuthController.logout()`
    */
   logout: function (req, res) {
     req.logout();
-    //res.clearCookie('userid');
 
     return res.json('Logged out!', 200);
   },
@@ -48,14 +39,6 @@ module.exports = {
   },
 
   /**
-   * `AuthController.register()`
-   */
-  register: function(req, res) {
-    return res.view('auth/create');
-  },
-
-
-  /**
    * `AuthController.process()`
    */
   process: function (req, res) {
@@ -67,8 +50,6 @@ module.exports = {
       }
       req.logIn(user, function (err) {
         if (err) res.json('Sorry, cannot log you in!', 403);
-
-        //res.cookie('userid', user._id, { maxAge: 2592000000 });
         
         return res.json({ user: user, message: 'Logged in!'}, 200);
       });

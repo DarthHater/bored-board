@@ -30,10 +30,6 @@ module.exports.routes = {
   '/': {
     view: 'homepage'
   },
-  'get /login': {
-    controller: 'auth',
-    action: 'login'
-  },
   'post /login': {
     controller: 'auth',
     action: 'process'
@@ -41,14 +37,6 @@ module.exports.routes = {
   'get /logout': {
     controller: 'auth',
     action: 'logout'
-  },
-  'get /user/register': {
-    controller: 'auth',
-    action: 'register'
-  },
-  'post /user/register': {
-    controller: 'auth',
-    action: 'create'
   }
   //'get /thread/view/:id': 'ThreadController.view',
   //'get /thread/list/': 'ThreadController.list',
