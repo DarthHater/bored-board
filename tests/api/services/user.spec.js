@@ -72,5 +72,7 @@ describe('The User Model', function () {
         }, function (err) {
             if (err) console.log('testusername not removed');
         });
+
+        mongoose.connection.close();
     });
 });
