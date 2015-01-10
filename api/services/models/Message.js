@@ -13,7 +13,10 @@ module.exports = function(mongoose) {
 	 		required: true 
 	 	},
 	 	creator: mongoose.Schema.Types.ObjectId,
-	 	username: String,
+	 	username: {
+	 		type: String,
+	 		required: true
+	 	},
 	 	conversation: mongoose.Schema.Types.ObjectId,
 	 	createdAt: { type: Date, default: Date.now }
 	});
