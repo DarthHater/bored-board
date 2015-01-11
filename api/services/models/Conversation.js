@@ -16,12 +16,18 @@ module.exports = function(mongoose) {
 	 		type: mongoose.Schema.Types.ObjectId,
 	 		required: true
 	 	},
-	 	createdBy: String,
+	 	createdBy: { 
+	 		type: String,
+	 		required: true
+	 	},
 	 	updatedBy: {
 	 		type: String,
 	 		required: true
 	 	},
-	 	updatedId: mongoose.Schema.Types.ObjectId,
+	 	updatedId: {
+	 		type: mongoose.Schema.Types.ObjectId,
+	 		required: true
+	 	},
 	 	datePosted: { type: Date, default: Date.now },
 	 	dateUpdated: { type: Date, default: Date.now },
 	 	numberOfPosts: { type: Number, default: 1 }
