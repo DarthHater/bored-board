@@ -41,7 +41,7 @@ describe('The User Model', function () {
 
     describe('given a duplicate username', function () {
         it('should reject the user from being created', function (done) {
-            user.email = 'test@test.com';
+            user.emailaddress = 'test@test.com';
             User(user).save(function (err, data) {
                 expect(err.errors.username.message).to.equal('Validator failed for path `username` with value `testuser`');
                 done();
@@ -53,6 +53,7 @@ describe('The User Model', function () {
         it('should remove the password from the object', function (done) {
             var newUser = User(user).toJSON();
             expect(newUser.password).to.equal(undefined);
+            expect(newUser.emailaddress).to.equal('newtest@test.com');
             done();
         });
     });
