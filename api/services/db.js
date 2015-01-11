@@ -20,6 +20,8 @@ var options = {
             	} 
             }
     	};
+
+// Using createConnection instead of connect to establish a distinct connection
 mongoose.connect(helper.connectionString(conf.environment), options);
 
  
@@ -30,16 +32,16 @@ mongoose.connect(helper.connectionString(conf.environment), options);
  
 var db = mongoose.connection;
  
-console.log('Trying to connect to MongoDB via Mongoose ...');
- 
 db.on('error', console.error.bind(console, 'Mongoose connection error:'));
 db.once('open', function callback() {
-    console.log('Connected to MongoDB !');
+
 });
 
 module.exports = {
 	Thread: require('./models/Thread.js')(mongoose),
 	User: require('./models/User.js')(mongoose),
 	Post: require('./models/Post.js')(mongoose),
+	Message: require('./models/Message.js')(mongoose),
+	Conversation: require('./models/Conversation.js')(mongoose),
 	helper: require('./models/Helpers.js')
 };

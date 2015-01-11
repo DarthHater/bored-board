@@ -1,28 +1,28 @@
 var mongoose = require('mongoose'),
     User = require('../../../api/services/models/User')(mongoose),
     assert = require('chai').assert,
-    expect = require('chai').expect;
+    expect = require('chai').expect,
+    user;
 
 describe('The User Model', function () {
-    before(function() {
+    before(function (done) {
         mongoose.connect('mongodb://localhost/bored-board');
-        User({
+        done();
+    });
+
+    beforeEach(function (done) {
+        user = {
             username: 'testuser',
             password: 'testpassword',
             emailaddress: 'newtest@test.com'
-        }).save(function (err, user) {
-            if (err) console.log('Setup of user failed because: ' + err.message);
-        });
+        };
+        done();
     });
 
     describe('before the user is created', function () {
-        it ('should hash the password', function (done) {
-            User({
-                username: 'Test User 2',
-                password: 'password',
-                emailaddress: 'testemailaddress2@gmail.com'
-            }).save(function (err, user) {
-                assert.notEqual(user.password, 'password');
+        it('should hash the password', function (done) {
+            User(user).save(function (err, data) {
+                assert.notEqual(data.password, user.password);
                 done();
             });
         });
@@ -30,11 +30,8 @@ describe('The User Model', function () {
 
     describe('given a duplicate email address', function() {
         it('should reject the user from being created', function (done) {
-            User({
-                username: 'testusername',
-                password: 'testpassword',
-                emailaddress: 'newtest@test.com'
-            }).save(function (err, user) {
+            user.username = 'imdifferent';
+            User(user).save(function (err, data) {
                 expect(err.errors.emailaddress.message).to.equal('Validator failed for path `emailaddress` with value `newtest@test.com`');
                 done();
             });
@@ -43,18 +40,15 @@ describe('The User Model', function () {
 
     describe('given a duplicate username', function () {
         it('should reject the user from being created', function (done) {
-            User({
-                username: 'testuser',
-                password: 'anothertest',
-                emailaddress: 'differentemailaddress@gmail.com'
-            }).save(function (err, user) {
+            user.email = 'test@test.com';
+            User(user).save(function (err, data) {
                 expect(err.errors.username.message).to.equal('Validator failed for path `username` with value `testuser`');
                 done();
             });
         });
     });
 
-    after(function() {
+    after(function (done) {
         User.findOneAndRemove({
             username: 'testuser'
         }, function (err) {
@@ -74,5 +68,6 @@ describe('The User Model', function () {
         });
 
         mongoose.connection.close();
+        done();
     });
 });
