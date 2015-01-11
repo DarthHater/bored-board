@@ -6,7 +6,6 @@ var mongoose = require('mongoose'),
 
 describe('The User Model', function () {
     before(function (done) {
-        mongoose.connect('mongodb://localhost/bored-board');
         User = require('../../../api/services/models/User')(mongoose);
 
         done();
@@ -52,29 +51,6 @@ describe('The User Model', function () {
 
     afterEach(function (done) {
         user = null;
-        done();
-    });
-
-    after(function (done) {
-        User.findOneAndRemove({
-            username: 'testuser'
-        }, function (err) {
-            if (err) console.log('User not removed?');
-        });
-
-        User.findOneAndRemove({
-            username: 'Test User 2'
-        }, function (err) {
-            if (err) console.log('Test User 2 not removed');
-        });
-
-        User.findOneAndRemove({
-            username: 'testusername'
-        }, function (err) {
-            if (err) console.log('testusername not removed');
-        });
-
-        mongoose.connection.close();
         done();
     });
 });

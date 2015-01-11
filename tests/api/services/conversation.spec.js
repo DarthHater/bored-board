@@ -8,11 +8,7 @@ var mongoose = require('mongoose'),
 
 describe('The Conversation Model', function () {
     before(function(done) {
-        mongoose.connect('mongodb://localhost/bored-board');
         Conversation = require('../../../api/services/models/Conversation')(mongoose);
-
-        Conversation.remove({}, function(err) { 
-        });
         done();
     });
 
@@ -78,14 +74,6 @@ describe('The Conversation Model', function () {
 
     afterEach(function (done) {
         convo = null;
-        done();
-    });
-
-    after(function(done) {
-        Conversation.remove({}, function(err) { 
-        });
-
-        mongoose.connection.close();
         done();
     });
 });

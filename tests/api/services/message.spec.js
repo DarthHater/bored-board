@@ -7,13 +7,7 @@ var mongoose = require('mongoose'),
 
 describe('The Message Model', function () {
     before(function(done) {
-        mongoose.connect('mongodb://localhost/bored-board');
         Message = require('../../../api/services/models/Message')(mongoose);
-
-        // Remove all messages to ensure testing is pristine
-        Message.remove({}, function(err) { 
-        });
-
         done();
     });
 
@@ -56,14 +50,6 @@ describe('The Message Model', function () {
 
     afterEach(function (done) {
         message = null;
-        done();
-    });
-
-    after(function(done) {
-        // Clear collection after testing to ensure it is pristine for other tests
-        Message.remove({}, function(err) { 
-        });
-        mongoose.connection.close();
         done();
     });
 });
