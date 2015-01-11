@@ -36,7 +36,13 @@
                 <li><a href="#/thread/new">new thread</a></li>
               </ul>
             </li>
-            <li><a href="#">messages</a></li>
+            <li class="dropdown">
+              <a class="dropdown-toggle" data-toggle="dropdown">conversations <b class="caret"></b></a>
+              <ul class="dropdown-menu">
+                <li><a href="#">view all</a></li>
+                <li><a href="#/conversation/new">new conversation</a></li>
+              </ul>
+            </li>
             <li><a href="#">search</a></li>
             <li><a href="#/user/me">profile</a></li>
             <li ng-if="!currentUser"><a href="#/login">sign in</a></li>
@@ -62,6 +68,7 @@
     <script src="/js/dependencies/jquery/jquery.min.js"></script>
     <script src="/js/dependencies/angular/angular.min.js"></script>
     <script src="/js/dependencies/angular-route/angular-route.min.js"></script>
+    <script src="/js/dependencies/angular-cookies/angular-cookies.min.js"></script>
     <script src="/js/dependencies/ngInfiniteScroll/ng-infinite-scroll.min.js"></script>
     <script src="/js/dependencies/sails.io.js"></script>
     <script src="/js/dependencies/bootstrap/bootstrap.min.js"></script>

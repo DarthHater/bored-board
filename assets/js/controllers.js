@@ -14,6 +14,10 @@ config(['$routeProvider',
         templateUrl: 'partials/newthread.html',
         controller: 'ThreadCreateCtrl'
       }).
+      when('/conversation/new', {
+        templateUrl: 'partials/newconversation.html',
+        controller: 'ConversationCreateCtrl'
+      }).
       when('/register', {
         templateUrl: 'partials/register.html',
         controller: 'AuthRegisterCtrl'
@@ -103,6 +107,10 @@ boredBoardApp.controller('ThreadCreateCtrl', function ($scope, $location, APP_RO
       });
     }
   };
+});
+
+boredBoardApp.controller('ConversationCreateCtrl', function ($scope, $location, APP_ROUTES, socket) {
+  
 });
 
 boredBoardApp.controller('ThreadViewCtrl', function ($scope, socket, $sce, $routeParams, APP_ROUTES, Scroll) {

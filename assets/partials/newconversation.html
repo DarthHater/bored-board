@@ -1,0 +1,50 @@
+<div id="response_form" ng-controller="ConversationCreateCtrl"></div>
+  <form novalidate ng-submit="post(newConversationForm.$valid)" name="newConversationForm" class="conversationForm"> 
+    <fieldset>
+    <legend>New Conversation</legend>
+      <div class="form-group" ng-class="{ 'has-error' : newConversationForm.title.$invalid && !newConversationForm.title.$pristine }">
+        <label id="label_title" for="title">Title:</label>
+        <input type="text" name="title" id="title" ng-model="message.title" class="form-control" required></textarea>
+          <span class="error" ng-show="newConversationForm.title.$error.required && !newConversationForm.title.$pristine ">Conversation title required!</span><br>
+      </div>
+      <div class="form-group" ng-class="{ 'has-error' : newConversationForm.member.$invalid && !newConversationForm.member.$pristine }">
+        <label id="label_title" for="member">Send To:</label>
+        <input type="text" name="member" id="member" ng-model="message.member" class="form-control" required></textarea>
+          <span class="error" ng-show="newConversationForm.member.$error.required && !newConversationForm.member.$pristine ">Who are you sending this to?</span><br>
+      </div>
+      <div class="form-group" ng-class="{ 'has-error' : newConversationForm.body.$invalid && !newConversationForm.body.$pristine }">
+        <label id="label_body" for="body">Message:</label>
+        <textarea name="body" id="body" ng-model="message.body" rows=4 class="form-control" required></textarea>
+          <span class="error" ng-show="newConversationForm.body.$error.required && !newConversationForm.body.$pristine ">Message required!</span><br>
+      </div>
+    </fieldset>
+    <button type="submit" class="btn btn-success" ng-disabled="newConversationForm.$invalid" value="say it" id="submit">Say It</button>
+  </form>
+</div>
+<div id='bbcode' class='view' style='font-size:.85em;display:none;'>
+  <pre>
+  <h4>TAGS:</h4>
+  http://www.google.com/ <-- automatic link
+  [url]http://www.google.com/[/url]
+  [url=http://www.google.com/]with my own link text[/url]
+  [img]http://www.google.com/intl/en_ALL/images/logo.gif[/img]
+  [u]underline[/u]
+  [strong]bold[/strong]
+  [b]bold[/b]
+  [i]italic[/i]
+  [em]italic[/em]
+  [strike]strikethrough[/strike]
+  [code]like pre[/code]
+  [sub]subscript[/sub]
+  [sup]superscript[/sup]
+  [youtube]http://www.youtube.com/watch?v=WAwLYJYsa0A[/youtube]
+  [vimeo]http://vimeo.com/11487173[/vimeo]
+  [soundcloud]http://soundcloud.com/rantonio/infest[/soundcloud]
+  [bandcamp]album=48165752[/bandcamp]
+  [bandcamp]track=3451844715[/bandcamp]
+  More info on bandcamp embedding here: http://www.macosxaudio.com/forums/viewtopic.php?f=11&t=46948
+  [quote]quote[/quote]
+  [spoiler]hidden text here[/spoiler]
+  </pre>
+<div class='clear'></div>
+</div>
