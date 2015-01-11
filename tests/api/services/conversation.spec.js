@@ -1,5 +1,5 @@
 var mongoose = require('mongoose'),
-    Conversation = require('../../../api/services/models/Conversation')(mongoose),
+    Conversation,
     assert = require('chai').assert,
     expect = require('chai').expect,
     sinon = require('sinon'),
@@ -9,8 +9,8 @@ var mongoose = require('mongoose'),
 describe('The Conversation Model', function () {
     before(function(done) {
         mongoose.connect('mongodb://localhost/bored-board');
+        Conversation = require('../../../api/services/models/Conversation')(mongoose);
 
-        // Clear collection prior to running tests to ensure valid tests
         Conversation.remove({}, function(err) { 
         });
         done();
@@ -82,9 +82,9 @@ describe('The Conversation Model', function () {
     });
 
     after(function(done) {
-        // Clear collection after testing to ensure it is pristine for other tests
         Conversation.remove({}, function(err) { 
         });
+
         mongoose.connection.close();
         done();
     });

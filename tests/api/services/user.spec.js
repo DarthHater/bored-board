@@ -1,5 +1,5 @@
 var mongoose = require('mongoose'),
-    User = require('../../../api/services/models/User')(mongoose),
+    User,
     assert = require('chai').assert,
     expect = require('chai').expect,
     user;
@@ -7,6 +7,8 @@ var mongoose = require('mongoose'),
 describe('The User Model', function () {
     before(function (done) {
         mongoose.connect('mongodb://localhost/bored-board');
+        User = require('../../../api/services/models/User')(mongoose);
+
         done();
     });
 
@@ -46,6 +48,11 @@ describe('The User Model', function () {
                 done();
             });
         });
+    });
+
+    afterEach(function (done) {
+        user = null;
+        done();
     });
 
     after(function (done) {
