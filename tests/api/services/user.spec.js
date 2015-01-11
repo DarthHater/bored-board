@@ -49,6 +49,14 @@ describe('The User Model', function () {
         });
     });
 
+    describe('requesting a user object to json', function () {
+        it('should remove the password from the object', function (done) {
+            var newUser = User(user).toJSON();
+            expect(newUser.password).to.equal(undefined);
+            done();
+        });
+    });
+
     afterEach(function (done) {
         user = null;
         done();
