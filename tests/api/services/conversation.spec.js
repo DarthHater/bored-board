@@ -4,6 +4,8 @@ var mongoose = require('mongoose'),
     expect = require('chai').expect,
     sinon = require('sinon'),
     id,
+    id2,
+    arr,
     convo;
 
 describe('The Conversation Model', function () {
@@ -14,9 +16,14 @@ describe('The Conversation Model', function () {
 
     beforeEach(function (done) {
         id = mongoose.Types.ObjectId();
+        id2 = mongoose.Types.ObjectId();
+        arr = [];
+        arr.push(id);
+        arr.push(id2);
         convo = {
                 creator: id,
                 title: 'Test Conversation',
+                recipients: arr,
                 updatedBy: 'Feffy',
                 createdBy: 'Feffy',
                 updatedId: id
@@ -47,6 +54,26 @@ describe('The Conversation Model', function () {
             delete convo.title;
             Conversation(convo).save(function (err, conversation) {
                 expect(err.errors.title.message).to.equal('Path `title` is required.');
+                done();
+            });
+        });
+    });
+
+    describe('given a conversation without a recipient', function () {
+        it('should reject the conversation', function (done) {
+            delete convo.recipients;
+            Conversation(convo).save(function (err, conversation) {
+                expect(err.errors.recipients.message).to.equal('Path `recipients` is required.');
+                done();
+            });
+        });
+    });
+
+    describe('given a conversation with one recipient', function () {
+        it('should create the conversation', function (done) {
+            convo.recipients.splice(0, 1);
+            Conversation(convo).save(function (err, conversation) {
+                expect(conversation.title).to.equal('Test Conversation');
                 done();
             });
         });

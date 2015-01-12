@@ -16,6 +16,10 @@ module.exports = function(mongoose) {
 	 		type: mongoose.Schema.Types.ObjectId,
 	 		required: true
 	 	},
+	 	recipients: {
+	 		type: [mongoose.Schema.Types.ObjectId],
+	 		required: true
+	 	},
 	 	createdBy: { 
 	 		type: String,
 	 		required: true
