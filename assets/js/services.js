@@ -1,5 +1,19 @@
 var boredBoardFactory = angular.module('boredBoardFactory', ['ngRoute', 'ngCookies']);
 
+boredBoardFactory.factory('ConversationService', function (socket) {
+  var conversationService = {};
+
+  conversationService.create = function (path, conversation) {
+    socket.post(path, conversation, function(err, data) {
+      if (err) return err;
+
+      return data;
+    });
+  };
+
+  return conversationService;
+});
+
 boredBoardFactory.factory('AuthService', function ($http, Session) {
   var authService = {};
 
@@ -34,21 +48,23 @@ boredBoardFactory.factory('AuthService', function ($http, Session) {
 });
 
 boredBoardFactory.service('Session', function ($cookieStore) {
-  this.create = function (sessionId, userId) {
+  sessionService = {};
+
+  sessionService.create = function (sessionId, userId) {
     $cookieStore.put('userid', userId);
 
     this.id = sessionId;
     this.userId = userId;
   };
 
-  this.destroy = function () {
+  sessionService.destroy = function () {
     $cookieStore.remove('userid');
 
     this.id = null;
     this.userId = null;
   };
 
-  return this;
+  return sessionService;
 });
 
 boredBoardFactory.factory('Scroll', function (socket) {

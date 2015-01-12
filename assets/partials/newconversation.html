@@ -4,17 +4,17 @@
     <legend>New Conversation</legend>
       <div class="form-group" ng-class="{ 'has-error' : newConversationForm.title.$invalid && !newConversationForm.title.$pristine }">
         <label id="label_title" for="title">Title:</label>
-        <input type="text" name="title" id="title" ng-model="message.title" class="form-control" required></textarea>
+        <input type="text" name="title" id="title" ng-model="conversation.title" class="form-control" required></textarea>
           <span class="error" ng-show="newConversationForm.title.$error.required && !newConversationForm.title.$pristine ">Conversation title required!</span><br>
       </div>
       <div class="form-group" ng-class="{ 'has-error' : newConversationForm.member.$invalid && !newConversationForm.member.$pristine }">
         <label id="label_title" for="member">Send To:</label>
-        <input type="text" name="member" id="member" ng-model="message.member" class="form-control" required></textarea>
+        <input type="text" name="member" id="member" ng-model="conversation.member" class="form-control" required></textarea>
           <span class="error" ng-show="newConversationForm.member.$error.required && !newConversationForm.member.$pristine ">Who are you sending this to?</span><br>
       </div>
       <div class="form-group" ng-class="{ 'has-error' : newConversationForm.body.$invalid && !newConversationForm.body.$pristine }">
         <label id="label_body" for="body">Message:</label>
-        <textarea name="body" id="body" ng-model="message.body" rows=4 class="form-control" required></textarea>
+        <textarea name="body" id="body" ng-model="conversation.body" rows=4 class="form-control" required></textarea>
           <span class="error" ng-show="newConversationForm.body.$error.required && !newConversationForm.body.$pristine ">Message required!</span><br>
       </div>
     </fieldset>

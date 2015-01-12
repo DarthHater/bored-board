@@ -46,7 +46,8 @@ config(['$routeProvider',
     create_user: '/api/auth/create',
     view_user: '/api/user/view/',
     login: '/api/auth/process',
-    logout: '/api/auth/logout'
+    logout: '/api/auth/logout',
+    create_convo: '/api/conversation/create' 
   });
 
 boredBoardApp.controller('ApplicationController', function ($scope, $location, APP_ROUTES, AuthService) {
@@ -109,8 +110,23 @@ boredBoardApp.controller('ThreadCreateCtrl', function ($scope, $location, APP_RO
   };
 });
 
-boredBoardApp.controller('ConversationCreateCtrl', function ($scope, $location, APP_ROUTES, socket) {
-  
+boredBoardApp.controller('ConversationCreateCtrl', function ($scope, $location, APP_ROUTES, ConversationService) {
+  $scope.conversation = {
+    title: '',
+    member: '',
+    body: ''
+  };
+
+  $scope.post = function (isValid) {
+    if (isValid) {
+      ConversationService.create(APP_ROUTES.create_convo, $scope.conversation).
+        then(function(res) {
+          $location.path( '#/thread/list' );
+        }, function(err) {
+          console.log(err);
+        });
+    }
+  };
 });
 
 boredBoardApp.controller('ThreadViewCtrl', function ($scope, socket, $sce, $routeParams, APP_ROUTES, Scroll) {

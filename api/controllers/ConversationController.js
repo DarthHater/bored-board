@@ -17,21 +17,23 @@ module.exports = {
       creator: req.session.passport.user,
       title: req.body.title,
       updatedId: req.session.passport.user,
-      updatedBy: req.body.username,
-      createdBy: req.body.username
+      updatedBy: 'FefflonDon',
+      createdBy: 'FefflonDon'
     };
+
+
 
     var message = {
       body: req.body.body,
       creator: req.session.passport.user,
-      username: req.body.username
+      username: 'FefflonDon'
     };
 
     db.Conversation(conversation).save(function (err, data) {
-      if (err) res.json('Woops', 500);
+      if (err) return res.json(err, 500);
 
       db.Message(message).save(function (err, data) {
-        if (err) res.json('Woops', 500);
+        if (err) return res.json(err, 500);
 
         return res.json('Ok!', 200);
       });
